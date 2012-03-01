@@ -1,0 +1,2744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="AsciiDoc 8.6.6">
+<title>JBoss Java EE 6 Workshop</title>
+<style type="text/css">
+/* Shared CSS for AsciiDoc xhtml11 and html5 backends */
+
+/* Default font. */
+body {
+  font-family: Georgia,serif;
+}
+
+/* Title font. */
+h1, h2, h3, h4, h5, h6,
+div.title, caption.title,
+thead, p.table.header,
+#toctitle,
+#author, #revnumber, #revdate, #revremark,
+#footer {
+  font-family: Arial,Helvetica,sans-serif;
+}
+
+body {
+  margin: 1em 5% 1em 5%;
+}
+
+a {
+  color: blue;
+  text-decoration: underline;
+}
+a:visited {
+  color: fuchsia;
+}
+
+em {
+  font-style: italic;
+  color: navy;
+}
+
+strong {
+  font-weight: bold;
+  color: #083194;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #527bbd;
+  margin-top: 1.2em;
+  margin-bottom: 0.5em;
+  line-height: 1.3;
+}
+
+h1, h2, h3 {
+  border-bottom: 2px solid silver;
+}
+h2 {
+  padding-top: 0.5em;
+}
+h3 {
+  float: left;
+}
+h3 + * {
+  clear: left;
+}
+h5 {
+  font-size: 1.0em;
+}
+
+div.sectionbody {
+  margin-left: 0;
+}
+
+hr {
+  border: 1px solid silver;
+}
+
+p {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+ul, ol, li > p {
+  margin-top: 0;
+}
+ul > li     { color: #aaa; }
+ul > li > * { color: black; }
+
+pre {
+  padding: 0;
+  margin: 0;
+}
+
+#author {
+  color: #527bbd;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+#email {
+}
+#revnumber, #revdate, #revremark {
+}
+
+#footer {
+  font-size: small;
+  border-top: 2px solid silver;
+  padding-top: 0.5em;
+  margin-top: 4.0em;
+}
+#footer-text {
+  float: left;
+  padding-bottom: 0.5em;
+}
+#footer-badges {
+  float: right;
+  padding-bottom: 0.5em;
+}
+
+#preamble {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+div.imageblock, div.exampleblock, div.verseblock,
+div.quoteblock, div.literalblock, div.listingblock, div.sidebarblock,
+div.admonitionblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.admonitionblock {
+  margin-top: 2.0em;
+  margin-bottom: 2.0em;
+  margin-right: 10%;
+  color: #606060;
+}
+
+div.content { /* Block element content. */
+  padding: 0;
+}
+
+/* Block element titles. */
+div.title, caption.title {
+  color: #527bbd;
+  font-weight: bold;
+  text-align: left;
+  margin-top: 1.0em;
+  margin-bottom: 0.5em;
+}
+div.title + * {
+  margin-top: 0;
+}
+
+td div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content + div.title {
+  margin-top: 0.0em;
+}
+
+div.sidebarblock > div.content {
+  background: #ffffee;
+  border: 1px solid #dddddd;
+  border-left: 4px solid #f0f0f0;
+  padding: 0.5em;
+}
+
+div.listingblock > div.content {
+  border: 1px solid #dddddd;
+  border-left: 5px solid #f0f0f0;
+  background: #f8f8f8;
+  padding: 0.5em;
+}
+
+div.quoteblock, div.verseblock {
+  padding-left: 1.0em;
+  margin-left: 1.0em;
+  margin-right: 10%;
+  border-left: 5px solid #f0f0f0;
+  color: #777777;
+}
+
+div.quoteblock > div.attribution {
+  padding-top: 0.5em;
+  text-align: right;
+}
+
+div.verseblock > pre.content {
+  font-family: inherit;
+  font-size: inherit;
+}
+div.verseblock > div.attribution {
+  padding-top: 0.75em;
+  text-align: left;
+}
+/* DEPRECATED: Pre version 8.2.7 verse style literal block. */
+div.verseblock + div.attribution {
+  text-align: left;
+}
+
+div.admonitionblock .icon {
+  vertical-align: top;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-decoration: underline;
+  color: #527bbd;
+  padding-right: 0.5em;
+}
+div.admonitionblock td.content {
+  padding-left: 0.5em;
+  border-left: 3px solid #dddddd;
+}
+
+div.exampleblock > div.content {
+  border-left: 3px solid #dddddd;
+  padding-left: 0.5em;
+}
+
+div.imageblock div.content { padding-left: 0; }
+span.image img { border-style: none; }
+a.image:visited { color: white; }
+
+dl {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+dt {
+  margin-top: 0.5em;
+  margin-bottom: 0;
+  font-style: normal;
+  color: navy;
+}
+dd > *:first-child {
+  margin-top: 0.1em;
+}
+
+ul, ol {
+    list-style-position: outside;
+}
+ol.arabic {
+  list-style-type: decimal;
+}
+ol.loweralpha {
+  list-style-type: lower-alpha;
+}
+ol.upperalpha {
+  list-style-type: upper-alpha;
+}
+ol.lowerroman {
+  list-style-type: lower-roman;
+}
+ol.upperroman {
+  list-style-type: upper-roman;
+}
+
+div.compact ul, div.compact ol,
+div.compact p, div.compact p,
+div.compact div, div.compact div {
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
+}
+
+tfoot {
+  font-weight: bold;
+}
+td > div.verse {
+  white-space: pre;
+}
+
+div.hdlist {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+div.hdlist tr {
+  padding-bottom: 15px;
+}
+dt.hdlist1.strong, td.hdlist1.strong {
+  font-weight: bold;
+}
+td.hdlist1 {
+  vertical-align: top;
+  font-style: normal;
+  padding-right: 0.8em;
+  color: navy;
+}
+td.hdlist2 {
+  vertical-align: top;
+}
+div.hdlist.compact tr {
+  margin: 0;
+  padding-bottom: 0;
+}
+
+.comment {
+  background: yellow;
+}
+
+.footnote, .footnoteref {
+  font-size: 0.8em;
+}
+
+span.footnote, span.footnoteref {
+  vertical-align: super;
+}
+
+#footnotes {
+  margin: 20px 0 20px 0;
+  padding: 7px 0 0 0;
+}
+
+#footnotes div.footnote {
+  margin: 0 0 5px 0;
+}
+
+#footnotes hr {
+  border: none;
+  border-top: 1px solid silver;
+  height: 1px;
+  text-align: left;
+  margin-left: 0;
+  width: 20%;
+  min-width: 100px;
+}
+
+div.colist td {
+  padding-right: 0.5em;
+  padding-bottom: 0.3em;
+  vertical-align: top;
+}
+div.colist td img {
+  margin-top: 0.3em;
+}
+
+@media print {
+  #footer-badges { display: none; }
+}
+
+#toc {
+  margin-bottom: 2.5em;
+}
+
+#toctitle {
+  color: #527bbd;
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-top: 1.0em;
+  margin-bottom: 0.1em;
+}
+
+div.toclevel1, div.toclevel2, div.toclevel3, div.toclevel4 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+div.toclevel2 {
+  margin-left: 2em;
+  font-size: 0.9em;
+}
+div.toclevel3 {
+  margin-left: 4em;
+  font-size: 0.9em;
+}
+div.toclevel4 {
+  margin-left: 6em;
+  font-size: 0.9em;
+}
+
+span.aqua { color: aqua; }
+span.black { color: black; }
+span.blue { color: blue; }
+span.fuchsia { color: fuchsia; }
+span.gray { color: gray; }
+span.green { color: green; }
+span.lime { color: lime; }
+span.maroon { color: maroon; }
+span.navy { color: navy; }
+span.olive { color: olive; }
+span.purple { color: purple; }
+span.red { color: red; }
+span.silver { color: silver; }
+span.teal { color: teal; }
+span.white { color: white; }
+span.yellow { color: yellow; }
+
+span.aqua-background { background: aqua; }
+span.black-background { background: black; }
+span.blue-background { background: blue; }
+span.fuchsia-background { background: fuchsia; }
+span.gray-background { background: gray; }
+span.green-background { background: green; }
+span.lime-background { background: lime; }
+span.maroon-background { background: maroon; }
+span.navy-background { background: navy; }
+span.olive-background { background: olive; }
+span.purple-background { background: purple; }
+span.red-background { background: red; }
+span.silver-background { background: silver; }
+span.teal-background { background: teal; }
+span.white-background { background: white; }
+span.yellow-background { background: yellow; }
+
+span.big { font-size: 2em; }
+span.small { font-size: 0.6em; }
+
+span.underline { text-decoration: underline; }
+span.overline { text-decoration: overline; }
+span.line-through { text-decoration: line-through; }
+
+
+/*
+ * xhtml11 specific
+ *
+ * */
+
+tt {
+  font-family: monospace;
+  font-size: inherit;
+  color: navy;
+}
+
+div.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.tableblock > table {
+  border: 3px solid #527bbd;
+}
+thead, p.table.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.table {
+  margin-top: 0;
+}
+/* Because the table frame attribute is overriden by CSS in most browsers. */
+div.tableblock > table[frame="void"] {
+  border-style: none;
+}
+div.tableblock > table[frame="hsides"] {
+  border-left-style: none;
+  border-right-style: none;
+}
+div.tableblock > table[frame="vsides"] {
+  border-top-style: none;
+  border-bottom-style: none;
+}
+
+
+/*
+ * html5 specific
+ *
+ * */
+
+.monospaced {
+  font-family: monospace;
+  font-size: inherit;
+  color: navy;
+}
+
+table.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+thead, p.tableblock.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.tableblock {
+  margin-top: 0;
+}
+table.tableblock {
+  border-width: 3px;
+  border-spacing: 0px;
+  border-style: solid;
+  border-color: #527bbd;
+  border-collapse: collapse;
+}
+th.tableblock, td.tableblock {
+  border-width: 1px;
+  padding: 4px;
+  border-style: solid;
+  border-color: #527bbd;
+}
+
+table.tableblock.frame-topbot {
+  border-left-style: hidden;
+  border-right-style: hidden;
+}
+table.tableblock.frame-sides {
+  border-top-style: hidden;
+  border-bottom-style: hidden;
+}
+table.tableblock.frame-none {
+  border-style: hidden;
+}
+
+th.tableblock.halign-left, td.tableblock.halign-left {
+  text-align: left;
+}
+th.tableblock.halign-center, td.tableblock.halign-center {
+  text-align: center;
+}
+th.tableblock.halign-right, td.tableblock.halign-right {
+  text-align: right;
+}
+
+th.tableblock.valign-top, td.tableblock.valign-top {
+  vertical-align: top;
+}
+th.tableblock.valign-middle, td.tableblock.valign-middle {
+  vertical-align: middle;
+}
+th.tableblock.valign-bottom, td.tableblock.valign-bottom {
+  vertical-align: bottom;
+}
+
+
+/*
+ * manpage specific
+ *
+ * */
+
+body.manpage h1 {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  border-top: 2px solid silver;
+  border-bottom: 2px solid silver;
+}
+body.manpage h2 {
+  border-style: none;
+}
+body.manpage div.sectionbody {
+  margin-left: 3em;
+}
+
+@media print {
+  body.manpage div#toc { display: none; }
+}
+
+
+/*
+ * Theme specific overrides of the preceding (asciidoc.css) CSS.
+ *
+ */
+body {
+  font-family: Garamond, Georgia, serif;
+  font-size: 17px;
+  color: #3E4349;
+  line-height: 1.3em;
+}
+h1, h2, h3, h4, h5, h6,
+div.title, caption.title,
+thead, p.table.header,
+#toctitle,
+#author, #revnumber, #revdate, #revremark,
+#footer {
+  font-family: Garmond, Georgia, serif;
+  font-weight: normal;
+  border-bottom-width: 0;
+  color: #3E4349;
+}
+div.title, caption.title { color: #596673; font-weight: bold; }
+h1 { font-size: 240%; }
+h2 { font-size: 180%; }
+h3 { font-size: 150%; }
+h4 { font-size: 130%; }
+h5 { font-size: 115%; }
+h6 { font-size: 100%; }
+#header h1 { margin-top: 0; }
+#toc {
+  color: #444444;
+  line-height: 1.5;
+  padding-top: 1.5em;
+}
+#toctitle {
+  font-size: 20px;
+}
+#toc a {
+    border-bottom: 1px dotted #999999;
+    color: #444444 !important;
+    text-decoration: none !important;
+}
+#toc a:hover {
+    border-bottom: 1px solid #6D4100;
+    color: #6D4100 !important;
+    text-decoration: none !important;
+}
+div.toclevel1 { margin-top: 0.2em; font-size: 16px; }
+div.toclevel2 { margin-top: 0.15em; font-size: 14px; }
+em, dt, td.hdlist1 { color: black; }
+strong { color: #3E4349; }
+a { color: #004B6B; text-decoration: none; border-bottom: 1px dotted #004B6B; }
+a:visited { color: #615FA0; border-bottom: 1px dotted #615FA0; }
+a:hover { color: #6D4100; border-bottom: 1px solid #6D4100; }
+div.tableblock > table, table.tableblock { border: 3px solid #E8E8E8; }
+th.tableblock, td.tableblock { border: 1px solid #E8E8E8; }
+ul > li > * { color: #3E4349; }
+pre, tt, .monospaced { font-family: Consolas,Menlo,'Deja Vu Sans Mono','Bitstream Vera Sans Mono',monospace; }
+tt, .monospaced { font-size: 0.9em; color: black;
+}
+div.exampleblock > div.content, div.sidebarblock > div.content, div.listingblock > div.content { border-width: 0 0 0 3px; border-color: #E8E8E8; }
+div.verseblock { border-left-width: 0; margin-left: 3em; }
+div.quoteblock { border-left-width: 3px; margin-left: 0; margin-right: 0;}
+div.admonitionblock td.content { border-left: 3px solid #E8E8E8; }
+.hll { background-color: #ffffcc }
+.c { color: #888888 } /* Comment */
+.err { color: #a61717; background-color: #e3d2d2 } /* Error */
+.k { color: #008800; font-weight: bold } /* Keyword */
+.cm { color: #888888 } /* Comment.Multiline */
+.cp { color: #cc0000; font-weight: bold } /* Comment.Preproc */
+.c1 { color: #888888 } /* Comment.Single */
+.cs { color: #cc0000; font-weight: bold; background-color: #fff0f0 } /* Comment.Special */
+.gd { color: #000000; background-color: #ffdddd } /* Generic.Deleted */
+.ge { font-style: italic } /* Generic.Emph */
+.gr { color: #aa0000 } /* Generic.Error */
+.gh { color: #303030 } /* Generic.Heading */
+.gi { color: #000000; background-color: #ddffdd } /* Generic.Inserted */
+.go { color: #888888 } /* Generic.Output */
+.gp { color: #555555 } /* Generic.Prompt */
+.gs { font-weight: bold } /* Generic.Strong */
+.gu { color: #606060 } /* Generic.Subheading */
+.gt { color: #aa0000 } /* Generic.Traceback */
+.kc { color: #008800; font-weight: bold } /* Keyword.Constant */
+.kd { color: #008800; font-weight: bold } /* Keyword.Declaration */
+.kn { color: #008800; font-weight: bold } /* Keyword.Namespace */
+.kp { color: #008800 } /* Keyword.Pseudo */
+.kr { color: #008800; font-weight: bold } /* Keyword.Reserved */
+.kt { color: #888888; font-weight: bold } /* Keyword.Type */
+.m { color: #0000DD; font-weight: bold } /* Literal.Number */
+.s { color: #dd2200; } /* Literal.String */
+.na { color: #336699 } /* Name.Attribute */
+.nb { color: #003388 } /* Name.Builtin */
+.nc { color: #bb0066; font-weight: bold } /* Name.Class */
+.no { color: #003366; font-weight: bold } /* Name.Constant */
+.nd { color: #555555 } /* Name.Decorator */
+.ne { color: #bb0066; font-weight: bold } /* Name.Exception */
+.nf { color: #0066bb; font-weight: bold } /* Name.Function */
+.nl { color: #336699; font-style: italic } /* Name.Label */
+.nn { color: #bb0066; font-weight: bold } /* Name.Namespace */
+.py { color: #336699; font-weight: bold } /* Name.Property */
+.nt { color: #bb0066; font-weight: bold } /* Name.Tag */
+.nv { color: #336699 } /* Name.Variable */
+.ow { color: #008800 } /* Operator.Word */
+.w { color: #bbbbbb } /* Text.Whitespace */
+.mf { color: #0000DD; font-weight: bold } /* Literal.Number.Float */
+.mh { color: #0000DD; font-weight: bold } /* Literal.Number.Hex */
+.mi { color: #0000DD; font-weight: bold } /* Literal.Number.Integer */
+.mo { color: #0000DD; font-weight: bold } /* Literal.Number.Oct */
+.sb { color: #dd2200; } /* Literal.String.Backtick */
+.sc { color: #dd2200; } /* Literal.String.Char */
+.sd { color: #dd2200; } /* Literal.String.Doc */
+.s2 { color: #dd2200; } /* Literal.String.Double */
+.se { color: #0044dd; } /* Literal.String.Escape */
+.sh { color: #dd2200; } /* Literal.String.Heredoc */
+.si { color: #3333bb; } /* Literal.String.Interpol */
+.sx { color: #22bb22; } /* Literal.String.Other */
+.sr { color: #008800; } /* Literal.String.Regex */
+.s1 { color: #dd2200; } /* Literal.String.Single */
+.ss { color: #aa6600; } /* Literal.String.Symbol */
+.bp { color: #003388 } /* Name.Builtin.Pseudo */
+.vc { color: #336699 } /* Name.Variable.Class */
+.vg { color: #dd7700 } /* Name.Variable.Global */
+.vi { color: #3333bb } /* Name.Variable.Instance */
+.il { color: #0000DD; font-weight: bold } /* Literal.Number.Integer.Long */
+@media screen {
+  body {
+    max-width: 50em; /* approximately 80 characters wide */
+    margin-left: 16em;
+  }
+
+  #toc {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 13em;
+    padding: 0.5em;
+    padding-bottom: 1.5em;
+    margin: 0;
+    overflow: auto;
+    border-right: 3px solid #f8f8f8;
+    background-color: white;
+  }
+
+  #toc .toclevel1 {
+    margin-top: 0.5em;
+  }
+
+  #toc .toclevel2 {
+    margin-top: 0.25em;
+    display: list-item;
+    color: #aaaaaa;
+  }
+
+  #toctitle {
+    margin-top: 0.5em;
+  }
+}
+</style>
+<script type="text/javascript">
+/*<![CDATA[*/
+var asciidoc = {  // Namespace.
+
+/////////////////////////////////////////////////////////////////////
+// Table Of Contents generator
+/////////////////////////////////////////////////////////////////////
+
+/* Author: Mihai Bazon, September 2002
+ * http://students.infoiasi.ro/~mishoo
+ *
+ * Table Of Content generator
+ * Version: 0.4
+ *
+ * Feel free to use this script under the terms of the GNU General Public
+ * License, as long as you do not remove or alter this notice.
+ */
+
+ /* modified by Troy D. Hanson, September 2006. License: GPL */
+ /* modified by Stuart Rackham, 2006, 2009. License: GPL */
+
+// toclevels = 1..4.
+toc: function (toclevels) {
+
+  function getText(el) {
+    var text = "";
+    for (var i = el.firstChild; i != null; i = i.nextSibling) {
+      if (i.nodeType == 3 /* Node.TEXT_NODE */) // IE doesn't speak constants.
+        text += i.data;
+      else if (i.firstChild != null)
+        text += getText(i);
+    }
+    return text;
+  }
+
+  function TocEntry(el, text, toclevel) {
+    this.element = el;
+    this.text = text;
+    this.toclevel = toclevel;
+  }
+
+  function tocEntries(el, toclevels) {
+    var result = new Array;
+    var re = new RegExp('[hH]([2-'+(toclevels+1)+'])');
+    // Function that scans the DOM tree for header elements (the DOM2
+    // nodeIterator API would be a better technique but not supported by all
+    // browsers).
+    var iterate = function (el) {
+      for (var i = el.firstChild; i != null; i = i.nextSibling) {
+        if (i.nodeType == 1 /* Node.ELEMENT_NODE */) {
+          var mo = re.exec(i.tagName);
+          if (mo && (i.getAttribute("class") || i.getAttribute("className")) != "float") {
+            result[result.length] = new TocEntry(i, getText(i), mo[1]-1);
+          }
+          iterate(i);
+        }
+      }
+    }
+    iterate(el);
+    return result;
+  }
+
+  var toc = document.getElementById("toc");
+  if (!toc) {
+    return;
+  }
+
+  // Delete existing TOC entries in case we're reloading the TOC.
+  var tocEntriesToRemove = [];
+  var i;
+  for (i = 0; i < toc.childNodes.length; i++) {
+    var entry = toc.childNodes[i];
+    if (entry.nodeName == 'div'
+     && entry.getAttribute("class")
+     && entry.getAttribute("class").match(/^toclevel/))
+      tocEntriesToRemove.push(entry);
+  }
+  for (i = 0; i < tocEntriesToRemove.length; i++) {
+    toc.removeChild(tocEntriesToRemove[i]);
+  }
+
+  // Rebuild TOC entries.
+  var entries = tocEntries(document.getElementById("content"), toclevels);
+  for (var i = 0; i < entries.length; ++i) {
+    var entry = entries[i];
+    if (entry.element.id == "")
+      entry.element.id = "_toc_" + i;
+    var a = document.createElement("a");
+    a.href = "#" + entry.element.id;
+    a.appendChild(document.createTextNode(entry.text));
+    var div = document.createElement("div");
+    div.appendChild(a);
+    div.className = "toclevel" + entry.toclevel;
+    toc.appendChild(div);
+  }
+  if (entries.length == 0)
+    toc.parentNode.removeChild(toc);
+},
+
+
+/////////////////////////////////////////////////////////////////////
+// Footnotes generator
+/////////////////////////////////////////////////////////////////////
+
+/* Based on footnote generation code from:
+ * http://www.brandspankingnew.net/archive/2005/07/format_footnote.html
+ */
+
+footnotes: function () {
+  // Delete existing footnote entries in case we're reloading the footnodes.
+  var i;
+  var noteholder = document.getElementById("footnotes");
+  if (!noteholder) {
+    return;
+  }
+  var entriesToRemove = [];
+  for (i = 0; i < noteholder.childNodes.length; i++) {
+    var entry = noteholder.childNodes[i];
+    if (entry.nodeName == 'div' && entry.getAttribute("class") == "footnote")
+      entriesToRemove.push(entry);
+  }
+  for (i = 0; i < entriesToRemove.length; i++) {
+    noteholder.removeChild(entriesToRemove[i]);
+  }
+
+  // Rebuild footnote entries.
+  var cont = document.getElementById("content");
+  var spans = cont.getElementsByTagName("span");
+  var refs = {};
+  var n = 0;
+  for (i=0; i<spans.length; i++) {
+    if (spans[i].className == "footnote") {
+      n++;
+      var note = spans[i].getAttribute("data-note");
+      if (!note) {
+        // Use [\s\S] in place of . so multi-line matches work.
+        // Because JavaScript has no s (dotall) regex flag.
+        note = spans[i].innerHTML.match(/\s*\[([\s\S]*)]\s*/)[1];
+        spans[i].innerHTML =
+          "[<a id='_footnoteref_" + n + "' href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+        spans[i].setAttribute("data-note", note);
+      }
+      noteholder.innerHTML +=
+        "<div class='footnote' id='_footnote_" + n + "'>" +
+        "<a href='#_footnoteref_" + n + "' title='Return to text'>" +
+        n + "</a>. " + note + "</div>";
+      var id =spans[i].getAttribute("id");
+      if (id != null) refs["#"+id] = n;
+    }
+  }
+  if (n == 0)
+    noteholder.parentNode.removeChild(noteholder);
+  else {
+    // Process footnoterefs.
+    for (i=0; i<spans.length; i++) {
+      if (spans[i].className == "footnoteref") {
+        var href = spans[i].getElementsByTagName("a")[0].getAttribute("href");
+        href = href.match(/#.*/)[0];  // Because IE return full URL.
+        n = refs[href];
+        spans[i].innerHTML =
+          "[<a href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+      }
+    }
+  }
+},
+
+install: function(toclevels) {
+  var timerId;
+
+  function reinstall() {
+    asciidoc.footnotes();
+    if (toclevels) {
+      asciidoc.toc(toclevels);
+    }
+  }
+
+  function reinstallAndRemoveTimer() {
+    clearInterval(timerId);
+    reinstall();
+  }
+
+  timerId = setInterval(reinstall, 500);
+  if (document.addEventListener)
+    document.addEventListener("DOMContentLoaded", reinstallAndRemoveTimer, false);
+  else
+    window.onload = reinstallAndRemoveTimer;
+}
+
+}
+asciidoc.install(2);
+/*]]>*/
+</script>
+</head>
+<body class="article">
+<div id="header">
+<h1>JBoss Java EE 6 Workshop</h1>
+<span id="author">Dan Allen</span><br>
+<span id="email" class="monospaced">&lt;<a href="mailto:dan.j.allen@gmail.com">dan.j.allen@gmail.com</a>&gt;</span><br>
+<span id="revnumber">version 1.1.0,</span>
+<span id="revdate">Feb 29, 2012</span>
+<div id="toc">
+  <div id="toctitle">Table of Contents</div>
+  <noscript><p><b>JavaScript must be enabled in your browser to display the table of contents.</b></p></noscript>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph"><p>This tutorial steps through creating, testing and deploying an application using the JBoss Java EE tools and runtimes.</p></div>
+<div class="paragraph"><p>Here&#8217;s the development stack we&#8217;ll be using:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+OpenShift Express
+</p>
+</li>
+<li>
+<p>
+git
+</p>
+</li>
+<li>
+<p>
+JBoss Forge
+</p>
+</li>
+<li>
+<p>
+JBoss Tools
+</p>
+</li>
+<li>
+<p>
+JBoss AS 7
+</p>
+</li>
+<li>
+<p>
+Arquillian
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>Hang on, cause it&#8217;s going to move <em>fast</em>.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_openshift_introduction">OpenShift Introduction</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_why_java_ee_on_openshift">Why Java EE on OpenShift?</h3>
+<div class="paragraph"><p>You&#8217;ve probably been hearing a lot about cloud (&#8220;to the cloud!&#8221;). But, if you&#8217;re like me, you just haven&#8217;t been that motivated to try it, or it just seemed like too much effort. After all, taking a Java EE application to the cloud typically meant:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+Breaking out a credit card (I hate being restricted from exploring)
+</p>
+</li>
+<li>
+<p>
+Implementing tons of hacks to get a Java EE application running on a cloud provider
+</p>
+</li>
+<li>
+<p>
+Not knowing how Java EE development is even compatible with cloud
+</p>
+</li>
+<li>
+<p>
+Lack of crystal clear documentation and examples
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p><em>All that has changed</em>. I assure you, you&#8217;re in for a pleasant surprise.</p></div>
+<div class="paragraph"><p><a href="http://openshift.redhat.com/app/express">OpenShift Express</a> provides a free, cloud-based application platform for Java, Perl, PHP, Python, and Ruby applications using a shared-hosting model. Exploring the cloud has never been simpler. You can deploy a Java EE compliant application without requiring any hacks or workarounds. Best of all, take as much time as you like, because it&#8217;s all <em>free</em>. (Oh, and you can show off your applications to your friends, or even run applications for your own purposes).</p></div>
+<div class="paragraph"><p>It&#8217;s time to get going!</p></div>
+</div>
+<div class="sect2">
+<h3 id="_creating_an_openshift_account">Creating an OpenShift account</h3>
+<div class="paragraph"><p>Creating an OpenShift account is very straightforward.</p></div>
+<div class="olist arabic"><ol class="arabic">
+<li>
+<p>
+Go to the <a href="http://openshift.com">OpenShift homepage</a>
+</p>
+</li>
+<li>
+<p>
+Click on the "Signup and try it" button to open the registration form
+</p>
+</li>
+<li>
+<p>
+Enter a valid email address, a password (twice) and pass the Captcha (I know, it&#8217;s tough)
+</p>
+</li>
+<li>
+<p>
+Check your email and follow instructions in the welcome email
+</p>
+</li>
+</ol></div>
+<div class="paragraph"><p>Welcome to OpenShift!</p></div>
+</div>
+<div class="sect2">
+<h3 id="_installing_ruby_based_openshift_express_client_tools">Installing Ruby-based OpenShift Express client tools</h3>
+<div class="paragraph"><p>To interact with the OpenShift Express cloud, you&#8217;ll need the OpenShift Express client tools.</p></div>
+<div class="paragraph"><p>To install the OpenShift client tools, you&#8217;ll first need to install git and Ruby Gems.</p></div>
+<div class="paragraph"><p>On a Debian-based Linux distribution, it&#8217;s as easy as:</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="gp">$</span>&gt; sudo apt-get install ruby rubygems
+</pre></div></div></div>
+<div class="paragraph"><p>On a rpm-based Linux distribution, it&#8217;s as easy as:</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="gp">$</span>&gt; sudo yum install ruby rubygems
+</pre></div></div></div>
+<div class="paragraph"><p>Next, install the Red Hat Cloud (rhc) gem:</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="gp">$</span>&gt; sudo gem install rhc
+</pre></div></div></div>
+<div class="paragraph"><p>This will add a set of commands to your shell prefixed with rhc- (e.g., rhc-create-domain).</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img alt="Tip" src="data:image/png;base64,
+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">
+</td>
+<td class="content">On some distributions the gem installation directory is not automatically added to the path. Find the location of your gems with gem environment and add it to you system&#8217;s PATH environment variable.</td>
+</tr></table>
+</div>
+<div class="paragraph"><p>For more information see <a href="https://redhat.com/openshift/community/kb/kb-e1000/installing-openshift-express-client-tools-on-non-rpm-based-systems">Installing OpenShift Express client tools on Linux, Windows and Mac OSX</a>.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_creating_a_domain_for_your_applications">Creating a domain for your applications</h3>
+<div class="paragraph"><p>Before actually deploying an app to OpenShift, you first need to create a domain. A domain hosts one or more applications. The name of the domain will be used in the URL of your apps according to the following scheme:</p></div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph"><p>http://[application name]-[domain name].rhcloud.com</p></div>
+</div></div>
+<div class="paragraph"><p>Create a domain with the following command:</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="gp">$</span>&gt; rhc-create-domain -n <span class="o">[</span>domain name<span class="o">]</span> -l <span class="o">[</span>openshift email<span class="o">]</span>
+</pre></div></div></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img alt="Note" src="data:image/png;base64,
+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">
+</td>
+<td class="content">Use the same email address you used to register for your OpenShift account and enter your OpenShift password when prompted.</td>
+</tr></table>
+</div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img alt="Tip" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAKZUlEQVRoge2aa3BU5RmAn3Pbs7fs
+JmwCRGITk0hVLFAtNWoq6pAiU0cKaYfa6ShT+YN4YbQw9F/8QX+UMv6gM3Q6oxMV6TgIbe10Gq2g
+cSzDpRaFgmIk4SKB3LP3Pff+SM66m+xuFvEyzvSbeefsbva8+z7nvXzf934RHMfhmzzEr9uAqx3/
+B/i6xzceQP6iFDmT1cBxHNzCkFsgBEHIXnNeC1f7u1cN4DiOY9s2rliWhWVZWRDHcbJGC4KAJElI
+koQoioii6IiieFUgnxvAtm3HNdg0Tbq6uuju7ubYsWP09vYyMjKCpmmoqkokEqGhoYGFCxfS2tpK
+W1sbiqJkRZIkZxLoikGEK50H3CdumiZ9fX3s3LmT3bt3U1V3A0033cKc2nkEQxV4PSqSJOI4Dpqu
+k0gkGLx8kZ4T7zF87iSrV69m3bp1NDY2oqoqHo8HWZa5Uo9cEYBt245lWRiGQUdHB9u2beOe1Y8w
+/6bFVAT9xJJpYvEUiVSGjG5gmBY4DqIoonoUfF4PoYAfRRE5/8kp3njlD6xfv54tW7YQCATw+Xyu
+R8r2RtkAtm07pmly5MgRHn/8cZSaZpbcfjd+n5f+wVEGRqJkdCMv3vME8t77vB6qQn4+OX6YsXPH
+2bp1Ky0tLQQCAVRVdb0xI0RZZdQ1ft++fSxbtozrlqzgrnvvI5nRee9UL+f6h9B0A1EQEIsBiOKE
+TL7XdJOBkTg1jYtouu1+1qxZw549e4hGo6TTaUzTxLbtGZ/ujEmca/wvHnqYnz/2DLNn19B74TID
+I9HPjCvwlLMls4RHdMNC8IRZ8dBmnnp6E7Zts2rVKgB8Ph+yLDulPFEyhBzHcUzT5PDhwyxbtow1
+j3YQqanmozOfEk2kChuLQ3x0lGQihmM7qF4vVdWz8fr9hYFyoK30OG/ufpYXXniB1tZWwuEwXq8X
+WZaLJnZJAMuyHE3TuPPOO2lcsoLGpmZO9ZzPM37q0x0ZuISla2xY2077j5ZSFargZM9Znt97gE8u
+DBb3ziRIfPAcF4/v59VXX6W6uppQKISqqkiSVBCgaA64odPR0YFS00xjUzNnLlwmmkznxbKYI45j
+k04mefaZJ3j04VXMqZ6Fx6Pw3QXXs/3Xv6Tp2rnTALL3T8wDBCLz8M2Zz/bt24nFYjPmQ0EAt9b3
+9fWxbds2ltxxD0NjMQbdmC+QlIIgIIkSoWCAH971/Wk6PYrCg/f/oHiVmhSP6qWm/gY6Ozvp6ekh
+mUyi6zq2bWeXK+UAYFkWO3fu5N72dQT8Pi5cGp6xuoiiiBoMktH0gl5trp87DbqQBEMRbl32U3bt
+2kUikUDTtOzypGwAwzDYvXs3316wiEuDoxiGWVaZrAjP4qW/vFUQ4NAHPdlwKQWiqF4qa+ro6uoi
+kUiQTqcxDKM8ADd8Xn/9dWZdewMVwSCDo7GicT8NSBTZt/8oT259jgOHThBNpIgmUjy3dz/P7z2Q
+r2My7gs9FNUXoPpbN9Ld3Z0FKBRG0+YBN3y6u7tpWnAr8WR6+gxLfr03TYNMMolhGFimiWVbXDzb
+x4G3/4XgOIiyTF3DdW45nHG2RhBQfX6q65o5evQoy5cvn9BtWUiSRG5FLQhg2zbHjh3j+tsfKFrv
+3R8EGL7UT23NLNraWmi+ro5r5kSYHakiVOHH7/OiyDKxZIonf9NJIpWZMQcEwOPx4vNXcPr0B2Qy
+mdxEzrO34ExsWRa9vb3csjzEaP9w1sUFZ1RBQJJk/vjbTdTXzS2kDoBQwI9HmcEDOSJ7PAiiSH9/
+P7quY5omlmVN01soB3Ach5GREbyqiqabM8a+NxAglcmvPOf7h9jR+WdOfNQLwNtHTzIeT+XFfdGC
+IAiIogSOQzQaxTRNdy4ozwO2baNpGpIkY1j2RAJTeJ0jCAKRmtmcPHORmkglxz48y/5DJ3jrnUPM
+b7iGxx7+MZZls/efR0rG/VQPgwMC2eQtZHxRAABVVbM3lEpgV178azcvvfYOgiCgZTJomsbGR9oR
+BIHzl4YYGo2VlcCuWOaE5xVFwbbtqVHiCJOZXBQgEomg6zqSKOIUMrqER+LRKItvaubW78wH4NLQ
+WNmx7+q1DB1ZkgmFQohifqS7xhcFEEWRhoYGEokEqkeeWPLmurcEiGPbpJJJfvbAPVl95/qHJyYv
+mH5/EdG1FA5QW1ubzZvc8pm1deoHroKFCxcycPkiPlWdnmC5iTxlVk2n0wT9Xu69Y3FW51g8OfH3
+ye+WnAgnRcukyKQSNDU1Icty7n65NACAJEm0trbSc/zfVAT9JZ/U1NWklslwx/duxqMoWX0Zzcy/
+bwr0VCDT0NDTSS6f/ZBFixZlN/ySJJXnAVEUaWtrY6DvOIoiFlx5FhPLsrjl5uvzdPq8nsLfL6I3
+FR1FlhUG+v5LS0tLtmtRlgcEYaL5pCgKq1ev5lzPKfxeT8FwKSQA115Tk6eztjpcsubn6rUMnfj4
+MLHxIZYuXYrX683rVpQDIIiiiKIorFu3jn+8vIPKCt+0cCkG4m4Bc0fd3OqCoVIIJDo2iCQrvPu3
+F1m5cmVeu6VQz6hgDrj1t7GxkfXr1/Px+wdRPcr02C+wmgxVVnLm3KU8ffNmVxX03lSgRHSEVGyc
+oYt9tLe3U19fTzAYzAKUVYVyw0hVVbZs2cJw7/uYyZGSIeCCeFWVd499jGGaWX1zq8OfrYOKeC+T
+ijM+cBHHsRju/Q9r164lFAoRDAbdPfEVAQiiKOLxeAgEAmzdupW/v/A7RLPEyjTHuGjKYMfLb3B5
+eBzdMNl/+CSmZReN+0wqztDFs4iSxIE9O9mwYQPhcJhwOEwgEMhN4GkEZXUlYrEYe/bs4elfbWLF
+Q5tQKyJlVaRy+kSJ6AhjA58iihJdf9rBUxufYPny5cyZM6esrkTJxpabzIFAgFWrVmHbNps3b+bu
+n6wnVF2H4lHLmlULgZiGTmxkgGR8DNu2efOV3/PUxo20tbURiUSorKwkEAhkk7fYmLE36rZX0uk0
+0WiUgwcP0tHRQcW8G5ndsIBgaBYe1TvtyRYDMXWNZGyU+Ngwkiwz+GkfQ73vsWHDBhYvXkwkEmHW
+rFmEw2G3M1eyR1pWczcXIh6PMz4+zvbt2+ns7OS2+x6kanYdqjeA1xdAUb3IioIoSjg42JaJaejo
+mTRaOoGeTiHJEvGxYd55rZP29nbWrl1LOBymqqqKyspKKioqyjK+bIBcCE3TSCaTxGIxenp62LVr
+F11dXdTUL2BO/Xx8/goEUcSxbYSJ2EGS5IlzgnSC/r4PuXzmOEuXLmXlypXU19cTCoUIh8OEQqEr
+7k5/7vOBdDpNMpkkkUiQSCTo7u7m6NGjnD59mv7+fqLRKIZhoCgKoVCI2tpampqaWLRoES0tLfh8
+Pvx+P8FgkGAw+OWfD7gj94RG13U0TSOdTpNOp8lMbmQ0TcvbArrrK1mW8Xg8eL3e7BLB5/N9dSc0
+uSP3jMwwjKy4G3AXwB0ugAsx5YzMndW//DOy3OFMjGwrxrKs7NX9LBfAneFFUcxec6rU5zqpvCqA
+qTCT16/0nPgLA/i6xjf+Xw3+B2ll/uiqTaJTAAAAAElFTkSuQmCC">
+</td>
+<td class="content">All OpenShift Express client tools prompt you for your OpenShift password (unless you supply it using the -p command flag)</td>
+</tr></table>
+</div>
+<div class="paragraph"><p>The command will then create a pair of private and public keys as <em>libra_id_rsa</em> and <em>libra_id_rsa.pub</em> in your <em>$HOME/.ssh/</em> directory. It will ask you for a password to access the private key. <strong>Don&#8217;t forget it!</strong></p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img alt="Tip" src="data:image/png;base64,
+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">
+</td>
+<td class="content">If you want to use an existing ssh key file, you can specify it explicitly in the <em>$HOME/.openshift/express.conf</em> file. You&#8217;ll also discover that your email is cached in this file, which means you don&#8217;t have to specify it in subsequent commands.</td>
+</tr></table>
+</div>
+<div class="paragraph"><p>You can see a summary of your domain using the following command:</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="gp">$</span>&gt; rhc-domain-info
+</pre></div></div></div>
+<div class="paragraph"><p>You can also go to the <a href="https://openshift.redhat.com/app/dashboard">dashboard</a> to see your newly minted domain. You now have your own, free cloud. Woot!</p></div>
+</div>
+<div class="sect2">
+<h3 id="_creating_your_first_java_ee_application_on_openshift_express">Creating your first Java EE application on OpenShift Express</h3>
+<div class="paragraph"><p>We now want to create a new application that uses the JBoss AS 7 cartridge. This allows us to deploy Java EE compliant applications to OpenShift Express.</p></div>
+<div class="paragraph"><p>We&#8217;ll assume you&#8217;ll be developing the application in the following folder: <em>~/demos/apps/sellmore</em></p></div>
+<div class="paragraph"><p>Next, use the following command to create a slot in your OpenShift Express domain in which to run the application and the location where the local project should be created:</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="gp">$</span>&gt; rhc-create-app -a sellmore -t jbossas-7.0 -r ~/demos/apps/sellmore
+</pre></div></div></div>
+<div class="paragraph"><p>You&#8217;ll be prompted for your ssh key password that you created in the previous step.</p></div>
+<div class="paragraph"><p>Behind the scenes, OpenShift has created a git repository for you and cloned it locally. That&#8217;s how you&#8217;re going to "push" your application to the cloud. The cloned repository contains a Maven-based project structure (which you don&#8217;t have to use):</p></div>
+<div class="listingblock">
+<div class="title">Project layout</div>
+<div class="content monospaced">
+<pre>sellmore
+|- .git/
+|- .openshift/
+|- deployments/
+|- src/
+|- .gitignore
+|- pom.xml
+`- README</pre>
+</div></div>
+<div class="paragraph"><p>The <em>README</em> describes all the special directories that pertain to OpenShift Express.</p></div>
+<div class="paragraph"><p>The OpenShift setup leaves behind a sample application which is going to get in our way later on. So first, let&#8217;s clear the path:</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="gp">$</span>&gt; <span class="nb">cd </span>sellmore
+<span class="gp">$</span>&gt; git rm -r pom.xml src
+<span class="gp">$</span>&gt; git commit -m <span class="s1">&#39;clear a path&#39;</span>
+<span class="gp">$</span>&gt; <span class="nb">cd</span> ..
+</pre></div></div></div>
+<div class="paragraph"><p>If you&#8217;re working with another origin git repository (such as on github), we recommend renaming the OpenShift repository from origin to openshift:</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="gp">$</span>&gt; <span class="nb">cd </span>sellmore
+<span class="gp">$</span>&gt; git remote rename origin openshift
+<span class="gp">$</span>&gt; <span class="nb">cd</span> ..
+</pre></div></div></div>
+<div class="paragraph"><p>That separates the concern of managing your source code repository from deploying files to OpenShift.</p></div>
+<div class="paragraph"><p>You can see a summary of your application configuration using the following command:</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="gp">$</span>&gt; rhc-domain-info
+</pre></div></div></div>
+<div class="paragraph"><p>You can also go to the <a href="https://openshift.redhat.com/app/dashboard">dashboard</a> to see your application slot. If you click on the URL, you&#8217;ll see that a sample application is already running in the cloud. We&#8217;ll be replacing that soon enough.</p></div>
+<div class="paragraph"><p>If, for whatever reason, you need to delete your application, use this command:</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="gp">$</span>&gt; rhc-ctl-app -a sellmore -c destroy
+</pre></div></div></div>
+<div class="paragraph"><p>You&#8217;ll also want to delete your local .git repository (unless you mean to save it).</p></div>
+<div class="paragraph"><p>But now&#8217;s not the time to delete, it&#8217;s time to create!</p></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_jboss_forge_introduction">JBoss Forge Introduction</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_why_jboss_forge">Why JBoss Forge?</h3>
+<div class="paragraph"><p>Because starting a project is hard. It doesn&#8217;t just take time, it takes mental energy. We want to save that energy for creating useful things. Trust me, even if copying and pasting 20 lines of build XML seems easy, somewhere along the line your going to find yourself roasting your brain. Let&#8217;s toss the complexity over the wall and let a tool like Forge deal with it.</p></div>
+<div class="paragraph"><p>Forge is your monkey, or 10,000 of them.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_setting_up_forge">Setting up Forge</h3>
+<div class="paragraph"><p>To create our application, we&#8217;re going to use <a href="http://jboss.org/forge">JBoss Forge</a>. Forge is a plugin-based framework for rapid development of standards-based Java applications.</p></div>
+<div class="paragraph"><p>Begin by grabbing Forge from the <a href="https://repository.jboss.org/nexus/index.html#nexus-search;gav~org.jboss.forge~forge-distribution~~~~kw,versionexpand">download area</a>. Then, unpack the distribution:</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="gp">$</span>&gt; unzip forge-distribution-1.0.0.Beta5.zip
+</pre></div></div></div>
+<div class="paragraph"><p>Move the extracted folder to the location of your choice and change into that directory in your console:</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="gp">$</span>&gt; <span class="nb">cd</span> ~/opt/forge
+</pre></div></div></div>
+<div class="paragraph"><p>Finally, run Forge:</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="gp">$</span>&gt; ./bin/forge
+</pre></div></div></div>
+<div class="paragraph"><p>To be sure everything is working okay, run the about command in the Forge shell:</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="gp">$</span>forge&gt; about
+
+<span class="go">  _____</span>
+<span class="go"> |  ___|__  _ __ __ _  ___</span>
+<span class="go"> | |_ / _ \| `__/ _` |/ _ \  \\</span>
+<span class="go"> |  _| (_) | | | (_| |  __/  //</span>
+<span class="go"> |_|  \___/|_|  \__, |\___|</span>
+<span class="go">                 |___/</span>
+
+<span class="go">JBoss Forge, version [ 1.0.0.Beta5 ] - JBoss, by Red Hat, Inc. [ http://jboss.org/forge ]</span>
+</pre></div></div></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img alt="Note" src="data:image/png;base64,
+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">
+</td>
+<td class="content">Any command in this document prefixed with <span class="monospaced">$forge&gt;</span> is intended to be run in the Forge shell.</td>
+</tr></table>
+</div>
+<div class="paragraph"><p>Things look good. We&#8217;re ready to create an application.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_generating_an_application_with_forge">Generating an application with Forge</h3>
+<div class="paragraph"><p>Forge allows you to create a Java EE application from scratch. We&#8217;re going to generate a point of sale application step-by-step in the Forge shell using the commands below (make sure Forge is running):</p></div>
+<div class="listingblock">
+<div class="title">Forge commands to create a Java EE web project</div>
+<div class="content monospaced">
+<pre>new-project; <img alt="1" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAAAAABzHgM7AAAAAmJLR0QAAKqNIzIAAABjSURBVHja
+VY6xDcAwCAS/pPQaLim9QmajdOk2I2SNrMEIlARIoigU8Cek/4e7zdHaWOYOVwaoA6wOCw05Y7FB
+gE0tIWQ+sBcwKM8qoD/wB5wGL8hjfdzWrh01GRp1hInGjDoXwHgsFuzBVLQAAABDdEVYdFNvZnR3
+YXJlAEAoIylJbWFnZU1hZ2ljayA0LjIuOCA5OS8wOC8wMSBjcmlzdHlAbXlzdGljLmVzLmR1cG9u
+dC5jb22RuiG4AAAAKnRFWHRTaWduYXR1cmUANThhMDcyZTA3MGRhMjJmNjEzNWNiZDNlNDE0NTQ2
+ZjloaiHtAAAADnRFWHRQYWdlADEyeDEyKzArMIRtu30AAAAASUVORK5CYII=">
+
+scaffold setup --scaffoldType faces; <img alt="2" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAAAAABzHgM7AAAAAmJLR0QAAKqNIzIAAAB7SURBVHja
+HY6hFcMwDEQ/NDQsNSwU9Apdo7Cw0CsIBoZmhKzQEQJLDQsFVclHpHu693W429Zr7bu541Pg3kCm
+Y0K75u9TEUPhuGgWU4mQDvieEaSQEnsT6zKPeZY0EUNtrHMCXvYUuSUg0PsMjUSvpysUT6OOSil9
+izp/VNk1YJ8vf6MAAABDdEVYdFNvZnR3YXJlAEAoIylJbWFnZU1hZ2ljayA0LjIuOCA5OS8wOC8w
+MSBjcmlzdHlAbXlzdGljLmVzLmR1cG9udC5jb22RuiG4AAAAKnRFWHRTaWduYXR1cmUAODBlYWU1
+MjljOTRhN2Y0N2RlY2NmYWRhMjhhY2I5ZGblb7ENAAAADnRFWHRQYWdlADEyeDEyKzArMIRtu30A
+AAAASUVORK5CYII=">
+persistence setup --provider HIBERNATE --container JBOSS_AS7; <img alt="3" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAAAAABzHgM7AAAAAmJLR0QAAKqNIzIAAAB4SURBVHja
+JU6rFcNADBM09BqBhl6ltDCwKxQeDOwKB7tGYGCoYaChK6cmlt7TD1W5uap/sgoVBnEXWBTSoOdx
+7gpLDOAVorWC0ABdcBPqwZtx8Muf+DPXJpQ96Nu/LSMYl/n17oCOnplTOrpiwW3sUs4ZJmob5/wA
+Ubg1Y/zrjUwAAABDdEVYdFNvZnR3YXJlAEAoIylJbWFnZU1hZ2ljayA0LjIuOCA5OS8wOC8wMSBj
+cmlzdHlAbXlzdGljLmVzLmR1cG9udC5jb22RuiG4AAAAKnRFWHRTaWduYXR1cmUAODBiYmRhMjcy
+NmRkYWNlOGFiOGEwMWY1OWRlMmViZGII/Q51AAAADnRFWHRQYWdlADEyeDEyKzArMIRtu30AAAAA
+SUVORK5CYII=">
+validation setup --provider HIBERNATE_VALIDATOR; <img alt="4" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAAAAABzHgM7AAAAAmJLR0QAAKqNIzIAAABzSURBVHja
+HY0hEoUwEEMjkZVYZGVlr1CJxCKRXKPyy28reyVsZeXKsCFi573ZzAQk+x5jaQ6gFQAxIA8XceEN
+ZEN3DkOCH/TobUoSVuAYwSSLyzbvaHWVFJxUmmp+PF+twrLkuXzLwPmZ8+OjtH8KS6pGvuoGNo5b
+6rzDAAAAQ3RFWHRTb2Z0d2FyZQBAKCMpSW1hZ2VNYWdpY2sgNC4yLjggOTkvMDgvMDEgY3Jpc3R5
+QG15c3RpYy5lcy5kdXBvbnQuY29tkbohuAAAACp0RVh0U2lnbmF0dXJlADlmODJmY2FjOWUwMzlj
+YmRiNzIzODBhNDU5MTMyNGY1gLv4dgAAAA50RVh0UGFnZQAxMngxMiswKzCEbbt9AAAAAElFTkSu
+QmCC">
+
+entity --named Customer --package ~.domain; <img alt="5" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAAAAABzHgM7AAAAAmJLR0QAAKqNIzIAAAB2SURBVHja
+FY6hEcQwDAQPChqGGhoaqgWX8PUYBhqGBn4rX0JooKDh/UlsZ3b2BJKXH8XPTYLh1lpt1h+BwxkR
+A23jhsCQd2IkfH9T3HEkzPFegCXUKSUSpJUPsN7UFOgc9VkZUBoz9l0yrVHZarUcJZeb9XznDyNb
+Ny9CX3/7AAAAQ3RFWHRTb2Z0d2FyZQBAKCMpSW1hZ2VNYWdpY2sgNC4yLjggOTkvMDgvMDEgY3Jp
+c3R5QG15c3RpYy5lcy5kdXBvbnQuY29tkbohuAAAACp0RVh0U2lnbmF0dXJlAGZlNjkwNDYzMzc5
+ZWIyNWU1NjJmY2M4Y2M5YjNjN2Uw37I5ngAAAA50RVh0UGFnZQAxMngxMiswKzCEbbt9AAAAAElF
+TkSuQmCC">
+field string --named firstName;
+field string --named lastName;
+field temporal --type DATE --named birthDate;
+entity --named Item;
+field string --named name;
+field number --named price --type java.lang.Double;
+field int --named stock;
+cd ..;
+
+entity --named ProductOrder; <img alt="6" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAAAAABzHgM7AAAAAmJLR0QAAKqNIzIAAAB9SURBVHja
+FY0hEsMwDAQXChaaBgoG+guB/UZhvlAYWFhqmCeUBvoJoYaCgqrMbudu9oiI86m6tQyEb1AU6kjI
+3GxcQnVO2K0Uq/Ahi6tpFWClwLDe+wNkwt0R2yfk7Negv+csw8uWZR4c+NS4Z6FOTKmkTO88Df9W
+kfXwiD+zczjqCrgbWQAAAEN0RVh0U29mdHdhcmUAQCgjKUltYWdlTWFnaWNrIDQuMi44IDk5LzA4
+LzAxIGNyaXN0eUBteXN0aWMuZXMuZHVwb250LmNvbZG6IbgAAAAqdEVYdFNpZ25hdHVyZQBkMjVk
+NzE3NmQ2N2EwMzhhZmMxYzU2NTU4ZTNkZmIxYf0Q9bUAAAAOdEVYdFBhZ2UAMTJ4MTIrMCswhG27
+fQAAAABJRU5ErkJggg==">
+field manyToOne --named customer --fieldType ~.domain.Customer.java --inverseFieldName orders;
+cd ../Customer.java;
+entity --named Profile;
+field string --named bio;
+field string --named preferredName;
+field string --named notes;
+entity --named Address;
+field string --named street;
+field string --named city;
+entity --named ZipCode;
+field int --named code;
+cd ../Address.java;
+
+field manyToOne --named zip --fieldType ~.domain.ZipCode.java; <img alt="7" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAAAAABzHgM7AAAAAmJLR0QAAKqNIzIAAABySURBVHja
+JY6tAYUwDIRPViJZIbKyFoms7EyVT74VkJWswQpIZOSRK4lIvuTyA5Kjmu2Hk6DXZQ1fyh3QcESX
+F7LjhGy9G/BDmzBUK8jKqyukD66BCZIVVkGGat2ToIN7jE+VOfhscx9MR8l/Scl6vPMCPjYxv0cQ
+VlMAAABDdEVYdFNvZnR3YXJlAEAoIylJbWFnZU1hZ2ljayA0LjIuOCA5OS8wOC8wMSBjcmlzdHlA
+bXlzdGljLmVzLmR1cG9udC5jb22RuiG4AAAAKnRFWHRTaWduYXR1cmUAMjk4MzY4MTQyYWM0M2Nl
+YmQyNTg2ZDhkMTEzN2M4ZGYmOemZAAAADnRFWHRQYWdlADEyeDEyKzArMIRtu30AAAAASUVORK5C
+YII=">
+cd ..;
+cd Customer.java;
+field manyToMany --named addresses --fieldType ~.domain.Address.java;
+cd ..;
+cd Address.java;
+cd ../Customer.java;
+field oneToOne --named profile --fieldType ~.domain.Profile.java;
+cd ..;
+cd ProductOrder.java;
+field manyToMany --named items --fieldType ~.domain.Item.java;
+cd ..;
+cd ProductOrder.java;
+field manyToOne --named shippingAddress --fieldType ~.domain.Address.java;
+cd ..;
+
+scaffold from-entity ~.domain.* --scaffoldType faces --overwrite; <img alt="8" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAAAAABzHgM7AAAAAmJLR0QAAKqNIzIAAAB/SURBVHja
+HY6hFcMwDAUPChqWGgYGhhoaBnaFwqzQEbyCYWCg1wgMNTQ0VKUK6T/duy9U9dyXuFdb0JEhRNi6
+hQT1uVtgnVTIM9APKBiUZpDxgZUXcPXnFhAP77lnv4hjtcHZHDPBMZbYvy4wtZQ+irj6X+qzDStV
+rTnG5O/8AKOfObpGYu0OAAAAQ3RFWHRTb2Z0d2FyZQBAKCMpSW1hZ2VNYWdpY2sgNC4yLjggOTkv
+MDgvMDEgY3Jpc3R5QG15c3RpYy5lcy5kdXBvbnQuY29tkbohuAAAACp0RVh0U2lnbmF0dXJlADU3
+YmUxOTUwNWMwM2Y5MmYzODQ3ZjUzNWU5YjExNGU52TRrQwAAAA50RVh0UGFnZQAxMngxMiswKzCE
+bbt9AAAAAElFTkSuQmCC">
+cd ~~;
+
+rest setup; <img alt="9" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAAAAABzHgM7AAAAAmJLR0QAAKqNIzIAAAB/SURBVHja
+FY4hFoQwDAVHRlZikchKLLISuVdYieQKyF4BWbmSa1RiKysjs6nJe5M/L/mYWdmXeS9qhukGIcDa
+HRJSarudlALHK5N+IJPg9kUdEROcI3lABoSnt/Yb4LcQkZoh4u6mc7IVLtRnsf6FRbEeh+3S60/N
+cgwSL6/zB4xQOGLZ0vsXAAAAQ3RFWHRTb2Z0d2FyZQBAKCMpSW1hZ2VNYWdpY2sgNC4yLjggOTkv
+MDgvMDEgY3Jpc3R5QG15c3RpYy5lcy5kdXBvbnQuY29tkbohuAAAACp0RVh0U2lnbmF0dXJlADM0
+NjIzZTVlNGQ0ODMxMGU0MDliMjgwYWZlMjQ3NjAy1DE0JAAAAA50RVh0UGFnZQAxMngxMiswKzCE
+bbt9AAAAAElFTkSuQmCC">
+rest endpoint-from-entity ~.domain.*; <img alt="10" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAAAAABzHgM7AAAAAmJLR0QAAKqNIzIAAACDSURBVHja
+JY6hFQQhEEMjkUgsEomcFk5eC1vCtnASiVy7JYykBSQSexKJzM2+i/sveUlA8pLgpWwSXOIDXPJ5
+GohTTbN932njjouqinOi4AXXdZzIjBkB6LoPBMv/YR2IFFjMoH8gDBn3A2X42q3A3Hb5tke2ahuF
+ySE9o2QV51K1Oz/dokNiywlrEQAAAEN0RVh0U29mdHdhcmUAQCgjKUltYWdlTWFnaWNrIDQuMi44
+IDk5LzA4LzAxIGNyaXN0eUBteXN0aWMuZXMuZHVwb250LmNvbZG6IbgAAAAqdEVYdFNpZ25hdHVy
+ZQAzODZlODNiYjliZGZiYTMyMjdmNThiYjg5N2UyYzhhNRCfKw0AAAAOdEVYdFBhZ2UAMTJ4MTIr
+MCswhG27fQAAAABJRU5ErkJggg==">
+
+build; <img alt="11" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAIAAADZF8uwAAAACXBIWXMAABJ0AAASdAHeZh94AAAA
+B3RJTUUH0gURDi0nPNlqgAAAAAd0RVh0QXV0aG9yAKmuzEgAAAAMdEVYdERlc2NyaXB0aW9uABMJ
+ISMAAAAKdEVYdENvcHlyaWdodACsD8w6AAAADnRFWHRDcmVhdGlvbiB0aW1lADX3DwkAAAAJdEVY
+dFNvZnR3YXJlAF1w/zoAAAALdEVYdERpc2NsYWltZXIAt8C0jwAAAAh0RVh0V2FybmluZwDAG+aH
+AAAAB3RFWHRTb3VyY2UA9f+D6wAAAAh0RVh0Q29tbWVudAD2zJa/AAAABnRFWHRUaXRsZQCo7tIn
+AAABAElEQVR4nHWPraqEcBDFz18MmgQ/gn2LSTYLglhFFBcfYR9ig69hEmQfQIPZbNu0zWwUjArq
+3KDrlfvxizPnzJzDiAgf1nXtuk4QBE3TcIaIiGiapiRJVFXdhoZhVFVFH0BE67rebjdd123bBsDz
+fBRFHMc9n89vUZZl1+v1/X4XRaHrelmWfd8DEAShbVsi4gCkaXq/36dpAhAEgaIo29NxHPM83zNJ
+ksQYezweRVEwxizL2i4BiON4vyRJ0tHxXHZbAeAAeJ6Hf/B9f7d2XSfL8m+F67rLsuztiKhpmsvl
+claEYTgMw7ZlR4h5nuu6fr1eoig6jmOa5mFgP5L+yRcsrJTnugWiFAAAAABJRU5ErkJggg==">
+
+cd ~~; <img alt="12" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAIAAADZF8uwAAAACXBIWXMAABJ0AAASdAHeZh94AAAA
+B3RJTUUH0gURDi4OVUahLwAAAAd0RVh0QXV0aG9yAKmuzEgAAAAMdEVYdERlc2NyaXB0aW9uABMJ
+ISMAAAAKdEVYdENvcHlyaWdodACsD8w6AAAADnRFWHRDcmVhdGlvbiB0aW1lADX3DwkAAAAJdEVY
+dFNvZnR3YXJlAF1w/zoAAAALdEVYdERpc2NsYWltZXIAt8C0jwAAAAh0RVh0V2FybmluZwDAG+aH
+AAAAB3RFWHRTb3VyY2UA9f+D6wAAAAh0RVh0Q29tbWVudAD2zJa/AAAABnRFWHRUaXRsZQCo7tIn
+AAABAElEQVR4nIWQIavCYBiFz8YQBGFgUoYsL8kYK1Y1G7Z/oazsF6wKMywY/AErS1YRLbaZLbMI
+8mWDxY9t54bd6+XecO9Tz3l5D49CEgCA8/mcZVlRFN1udzwee57XarWaCCRJRlGEn4xGo8fj0aQg
+ud1u2+324XBYLBbD4fB2uz2fz/l87vv+Z6mua8uyTqeTlDIIgjiO1+u17/vX6xVAnuckIYQA4Lru
+brcLggBAp9M5Ho9pmgJYLpckNSllc9FM0XV9v99rmuZ5HoDX6wVAHQwGvV7vvTeKIsdxhBBJkjQf
+ACgkV6tVGIbT6fR+vxuGYRgGgKqqLpdLnueqqoJkWZaz2eyXJ/BeRQAAAChJREFUgn6/XxTFtwKS
+UsrNZjOZTEzTtG07DEMhBL9Q3sb/QP23AeADawirdYhPNLoAAAAASUVORK5CYII=">
+echo "Project Info:"; project;</pre>
+</div></div>
+<div class="colist arabic"><table>
+<tr><td><img alt="1" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAAAAABzHgM7AAAAAmJLR0QAAKqNIzIAAABjSURBVHja
+VY6xDcAwCAS/pPQaLim9QmajdOk2I2SNrMEIlARIoigU8Cek/4e7zdHaWOYOVwaoA6wOCw05Y7FB
+gE0tIWQ+sBcwKM8qoD/wB5wGL8hjfdzWrh01GRp1hInGjDoXwHgsFuzBVLQAAABDdEVYdFNvZnR3
+YXJlAEAoIylJbWFnZU1hZ2ljayA0LjIuOCA5OS8wOC8wMSBjcmlzdHlAbXlzdGljLmVzLmR1cG9u
+dC5jb22RuiG4AAAAKnRFWHRTaWduYXR1cmUANThhMDcyZTA3MGRhMjJmNjEzNWNiZDNlNDE0NTQ2
+ZjloaiHtAAAADnRFWHRQYWdlADEyeDEyKzArMIRtu30AAAAASUVORK5CYII="></td><td>
+Create a new project in the current directory
+</td></tr>
+<tr><td><img alt="2" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAAAAABzHgM7AAAAAmJLR0QAAKqNIzIAAAB7SURBVHja
+HY6hFcMwDEQ/NDQsNSwU9Apdo7Cw0CsIBoZmhKzQEQJLDQsFVclHpHu693W429Zr7bu541Pg3kCm
+Y0K75u9TEUPhuGgWU4mQDvieEaSQEnsT6zKPeZY0EUNtrHMCXvYUuSUg0PsMjUSvpysUT6OOSil9
+izp/VNk1YJ8vf6MAAABDdEVYdFNvZnR3YXJlAEAoIylJbWFnZU1hZ2ljayA0LjIuOCA5OS8wOC8w
+MSBjcmlzdHlAbXlzdGljLmVzLmR1cG9udC5jb22RuiG4AAAAKnRFWHRTaWduYXR1cmUAODBlYWU1
+MjljOTRhN2Y0N2RlY2NmYWRhMjhhY2I5ZGblb7ENAAAADnRFWHRQYWdlADEyeDEyKzArMIRtu30A
+AAAASUVORK5CYII="></td><td>
+Turn our Java project into a Web project with <abbr title="JavaServer Faces">JSF</abbr>, <abbr title="Contexts &amp; Dependency Injection">CDI</abbr>, <abbr title="Enterprise JavaBeans">EJB</abbr>
+</td></tr>
+<tr><td><img alt="3" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAAAAABzHgM7AAAAAmJLR0QAAKqNIzIAAAB4SURBVHja
+JU6rFcNADBM09BqBhl6ltDCwKxQeDOwKB7tGYGCoYaChK6cmlt7TD1W5uap/sgoVBnEXWBTSoOdx
+7gpLDOAVorWC0ABdcBPqwZtx8Muf+DPXJpQ96Nu/LSMYl/n17oCOnplTOrpiwW3sUs4ZJmob5/wA
+Ubg1Y/zrjUwAAABDdEVYdFNvZnR3YXJlAEAoIylJbWFnZU1hZ2ljayA0LjIuOCA5OS8wOC8wMSBj
+cmlzdHlAbXlzdGljLmVzLmR1cG9udC5jb22RuiG4AAAAKnRFWHRTaWduYXR1cmUAODBiYmRhMjcy
+NmRkYWNlOGFiOGEwMWY1OWRlMmViZGII/Q51AAAADnRFWHRQYWdlADEyeDEyKzArMIRtu30AAAAA
+SUVORK5CYII="></td><td>
+Setup <abbr title="Java Persistence API">JPA</abbr>
+</td></tr>
+<tr><td><img alt="4" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAAAAABzHgM7AAAAAmJLR0QAAKqNIzIAAABzSURBVHja
+HY0hEoUwEEMjkZVYZGVlr1CJxCKRXKPyy28reyVsZeXKsCFi573ZzAQk+x5jaQ6gFQAxIA8XceEN
+ZEN3DkOCH/TobUoSVuAYwSSLyzbvaHWVFJxUmmp+PF+twrLkuXzLwPmZ8+OjtH8KS6pGvuoGNo5b
+6rzDAAAAQ3RFWHRTb2Z0d2FyZQBAKCMpSW1hZ2VNYWdpY2sgNC4yLjggOTkvMDgvMDEgY3Jpc3R5
+QG15c3RpYy5lcy5kdXBvbnQuY29tkbohuAAAACp0RVh0U2lnbmF0dXJlADlmODJmY2FjOWUwMzlj
+YmRiNzIzODBhNDU5MTMyNGY1gLv4dgAAAA50RVh0UGFnZQAxMngxMiswKzCEbbt9AAAAAElFTkSu
+QmCC"></td><td>
+Setup Bean Validation
+</td></tr>
+<tr><td><img alt="5" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAAAAABzHgM7AAAAAmJLR0QAAKqNIzIAAAB2SURBVHja
+FY6hEcQwDAQPChqGGhoaqgWX8PUYBhqGBn4rX0JooKDh/UlsZ3b2BJKXH8XPTYLh1lpt1h+BwxkR
+A23jhsCQd2IkfH9T3HEkzPFegCXUKSUSpJUPsN7UFOgc9VkZUBoz9l0yrVHZarUcJZeb9XznDyNb
+Ny9CX3/7AAAAQ3RFWHRTb2Z0d2FyZQBAKCMpSW1hZ2VNYWdpY2sgNC4yLjggOTkvMDgvMDEgY3Jp
+c3R5QG15c3RpYy5lcy5kdXBvbnQuY29tkbohuAAAACp0RVh0U2lnbmF0dXJlAGZlNjkwNDYzMzc5
+ZWIyNWU1NjJmY2M4Y2M5YjNjN2Uw37I5ngAAAA50RVh0UGFnZQAxMngxMiswKzCEbbt9AAAAAElF
+TkSuQmCC"></td><td>
+Create some JPA entities on which to base our application
+</td></tr>
+<tr><td><img alt="6" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAAAAABzHgM7AAAAAmJLR0QAAKqNIzIAAAB9SURBVHja
+FY0hEsMwDAQXChaaBgoG+guB/UZhvlAYWFhqmCeUBvoJoYaCgqrMbudu9oiI86m6tQyEb1AU6kjI
+3GxcQnVO2K0Uq/Ahi6tpFWClwLDe+wNkwt0R2yfk7Negv+csw8uWZR4c+NS4Z6FOTKmkTO88Df9W
+kfXwiD+zczjqCrgbWQAAAEN0RVh0U29mdHdhcmUAQCgjKUltYWdlTWFnaWNrIDQuMi44IDk5LzA4
+LzAxIGNyaXN0eUBteXN0aWMuZXMuZHVwb250LmNvbZG6IbgAAAAqdEVYdFNpZ25hdHVyZQBkMjVk
+NzE3NmQ2N2EwMzhhZmMxYzU2NTU4ZTNkZmIxYf0Q9bUAAAAOdEVYdFBhZ2UAMTJ4MTIrMCswhG27
+fQAAAABJRU5ErkJggg=="></td><td>
+Create more entities, also add a relationship between Customer and their Orders
+</td></tr>
+<tr><td><img alt="7" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAAAAABzHgM7AAAAAmJLR0QAAKqNIzIAAABySURBVHja
+JY6tAYUwDIRPViJZIbKyFoms7EyVT74VkJWswQpIZOSRK4lIvuTyA5Kjmu2Hk6DXZQ1fyh3QcESX
+F7LjhGy9G/BDmzBUK8jKqyukD66BCZIVVkGGat2ToIN7jE+VOfhscx9MR8l/Scl6vPMCPjYxv0cQ
+VlMAAABDdEVYdFNvZnR3YXJlAEAoIylJbWFnZU1hZ2ljayA0LjIuOCA5OS8wOC8wMSBjcmlzdHlA
+bXlzdGljLmVzLmR1cG9udC5jb22RuiG4AAAAKnRFWHRTaWduYXR1cmUAMjk4MzY4MTQyYWM0M2Nl
+YmQyNTg2ZDhkMTEzN2M4ZGYmOemZAAAADnRFWHRQYWdlADEyeDEyKzArMIRtu30AAAAASUVORK5C
+YII="></td><td>
+Add more relationships between our entities
+</td></tr>
+<tr><td><img alt="8" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAAAAABzHgM7AAAAAmJLR0QAAKqNIzIAAAB/SURBVHja
+HY6hFcMwDAUPChqWGgYGhhoaBnaFwqzQEbyCYWCg1wgMNTQ0VKUK6T/duy9U9dyXuFdb0JEhRNi6
+hQT1uVtgnVTIM9APKBiUZpDxgZUXcPXnFhAP77lnv4hjtcHZHDPBMZbYvy4wtZQ+irj6X+qzDStV
+rTnG5O/8AKOfObpGYu0OAAAAQ3RFWHRTb2Z0d2FyZQBAKCMpSW1hZ2VNYWdpY2sgNC4yLjggOTkv
+MDgvMDEgY3Jpc3R5QG15c3RpYy5lcy5kdXBvbnQuY29tkbohuAAAACp0RVh0U2lnbmF0dXJlADU3
+YmUxOTUwNWMwM2Y5MmYzODQ3ZjUzNWU5YjExNGU52TRrQwAAAA50RVh0UGFnZQAxMngxMiswKzCE
+bbt9AAAAAElFTkSuQmCC"></td><td>
+Generate the UI for all of our entities at once
+</td></tr>
+<tr><td><img alt="9" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAAAAABzHgM7AAAAAmJLR0QAAKqNIzIAAAB/SURBVHja
+FY4hFoQwDAVHRlZikchKLLISuVdYieQKyF4BWbmSa1RiKysjs6nJe5M/L/mYWdmXeS9qhukGIcDa
+HRJSarudlALHK5N+IJPg9kUdEROcI3lABoSnt/Yb4LcQkZoh4u6mc7IVLtRnsf6FRbEeh+3S60/N
+cgwSL6/zB4xQOGLZ0vsXAAAAQ3RFWHRTb2Z0d2FyZQBAKCMpSW1hZ2VNYWdpY2sgNC4yLjggOTkv
+MDgvMDEgY3Jpc3R5QG15c3RpYy5lcy5kdXBvbnQuY29tkbohuAAAACp0RVh0U2lnbmF0dXJlADM0
+NjIzZTVlNGQ0ODMxMGU0MDliMjgwYWZlMjQ3NjAy1DE0JAAAAA50RVh0UGFnZQAxMngxMiswKzCE
+bbt9AAAAAElFTkSuQmCC"></td><td>
+Setup JAX-RS
+</td></tr>
+<tr><td><img alt="10" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAAAAABzHgM7AAAAAmJLR0QAAKqNIzIAAACDSURBVHja
+JY6hFQQhEEMjkUgsEomcFk5eC1vCtnASiVy7JYykBSQSexKJzM2+i/sveUlA8pLgpWwSXOIDXPJ5
+GohTTbN932njjouqinOi4AXXdZzIjBkB6LoPBMv/YR2IFFjMoH8gDBn3A2X42q3A3Hb5tke2ahuF
+ySE9o2QV51K1Oz/dokNiywlrEQAAAEN0RVh0U29mdHdhcmUAQCgjKUltYWdlTWFnaWNrIDQuMi44
+IDk5LzA4LzAxIGNyaXN0eUBteXN0aWMuZXMuZHVwb250LmNvbZG6IbgAAAAqdEVYdFNpZ25hdHVy
+ZQAzODZlODNiYjliZGZiYTMyMjdmNThiYjg5N2UyYzhhNRCfKw0AAAAOdEVYdFBhZ2UAMTJ4MTIr
+MCswhG27fQAAAABJRU5ErkJggg=="></td><td>
+Generate <abbr title="Create, Read, Update &amp; Delete">CRUD</abbr> endpoints
+</td></tr>
+<tr><td><img alt="11" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAIAAADZF8uwAAAACXBIWXMAABJ0AAASdAHeZh94AAAA
+B3RJTUUH0gURDi0nPNlqgAAAAAd0RVh0QXV0aG9yAKmuzEgAAAAMdEVYdERlc2NyaXB0aW9uABMJ
+ISMAAAAKdEVYdENvcHlyaWdodACsD8w6AAAADnRFWHRDcmVhdGlvbiB0aW1lADX3DwkAAAAJdEVY
+dFNvZnR3YXJlAF1w/zoAAAALdEVYdERpc2NsYWltZXIAt8C0jwAAAAh0RVh0V2FybmluZwDAG+aH
+AAAAB3RFWHRTb3VyY2UA9f+D6wAAAAh0RVh0Q29tbWVudAD2zJa/AAAABnRFWHRUaXRsZQCo7tIn
+AAABAElEQVR4nHWPraqEcBDFz18MmgQ/gn2LSTYLglhFFBcfYR9ig69hEmQfQIPZbNu0zWwUjArq
+3KDrlfvxizPnzJzDiAgf1nXtuk4QBE3TcIaIiGiapiRJVFXdhoZhVFVFH0BE67rebjdd123bBsDz
+fBRFHMc9n89vUZZl1+v1/X4XRaHrelmWfd8DEAShbVsi4gCkaXq/36dpAhAEgaIo29NxHPM83zNJ
+ksQYezweRVEwxizL2i4BiON4vyRJ0tHxXHZbAeAAeJ6Hf/B9f7d2XSfL8m+F67rLsuztiKhpmsvl
+claEYTgMw7ZlR4h5nuu6fr1eoig6jmOa5mFgP5L+yRcsrJTnugWiFAAAAABJRU5ErkJggg=="></td><td>
+Build the project
+</td></tr>
+<tr><td><img alt="12" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAIAAADZF8uwAAAACXBIWXMAABJ0AAASdAHeZh94AAAA
+B3RJTUUH0gURDi4OVUahLwAAAAd0RVh0QXV0aG9yAKmuzEgAAAAMdEVYdERlc2NyaXB0aW9uABMJ
+ISMAAAAKdEVYdENvcHlyaWdodACsD8w6AAAADnRFWHRDcmVhdGlvbiB0aW1lADX3DwkAAAAJdEVY
+dFNvZnR3YXJlAF1w/zoAAAALdEVYdERpc2NsYWltZXIAt8C0jwAAAAh0RVh0V2FybmluZwDAG+aH
+AAAAB3RFWHRTb3VyY2UA9f+D6wAAAAh0RVh0Q29tbWVudAD2zJa/AAAABnRFWHRUaXRsZQCo7tIn
+AAABAElEQVR4nIWQIavCYBiFz8YQBGFgUoYsL8kYK1Y1G7Z/oazsF6wKMywY/AErS1YRLbaZLbMI
+8mWDxY9t54bd6+XecO9Tz3l5D49CEgCA8/mcZVlRFN1udzwee57XarWaCCRJRlGEn4xGo8fj0aQg
+ud1u2+324XBYLBbD4fB2uz2fz/l87vv+Z6mua8uyTqeTlDIIgjiO1+u17/vX6xVAnuckIYQA4Lru
+brcLggBAp9M5Ho9pmgJYLpckNSllc9FM0XV9v99rmuZ5HoDX6wVAHQwGvV7vvTeKIsdxhBBJkjQf
+ACgkV6tVGIbT6fR+vxuGYRgGgKqqLpdLnueqqoJkWZaz2eyXJ/BeRQAAAChJREFUgn6/XxTFtwKS
+UsrNZjOZTEzTtG07DEMhBL9Q3sb/QP23AeADawirdYhPNLoAAAAASUVORK5CYII="></td><td>
+Return to the project root directory and leave it in your hands
+</td></tr>
+</table></div>
+<div class="paragraph"><p>You&#8217;ve got a complete application, ready to deploy!</p></div>
+<div class="paragraph"><p>But wait! That sure seemed like a lot of typing. What&#8217;s really great about Forge is that it&#8217;s fine-grained enough to perform simple operations, but it can also compose those operations inside plugins or scripts!</p></div>
+<div class="paragraph"><p>You can take all of those commands and put them into a file named <em>generate.fsh</em>. You may also want to wrap the following two lines around the contents so that the commands run without pausing:</p></div>
+<div class="listingblock">
+<div class="title">Use as first line</div>
+<div class="content monospaced">
+<pre>set ACCEPT_DEFAULTS true; <img alt="1" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAAAAABzHgM7AAAAAmJLR0QAAKqNIzIAAABjSURBVHja
+VY6xDcAwCAS/pPQaLim9QmajdOk2I2SNrMEIlARIoigU8Cek/4e7zdHaWOYOVwaoA6wOCw05Y7FB
+gE0tIWQ+sBcwKM8qoD/wB5wGL8hjfdzWrh01GRp1hInGjDoXwHgsFuzBVLQAAABDdEVYdFNvZnR3
+YXJlAEAoIylJbWFnZU1hZ2ljayA0LjIuOCA5OS8wOC8wMSBjcmlzdHlAbXlzdGljLmVzLmR1cG9u
+dC5jb22RuiG4AAAAKnRFWHRTaWduYXR1cmUANThhMDcyZTA3MGRhMjJmNjEzNWNiZDNlNDE0NTQ2
+ZjloaiHtAAAADnRFWHRQYWdlADEyeDEyKzArMIRtu30AAAAASUVORK5CYII="></pre>
+</div></div>
+<div class="colist arabic"><table>
+<tr><td><img alt="1" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAAAAABzHgM7AAAAAmJLR0QAAKqNIzIAAABjSURBVHja
+VY6xDcAwCAS/pPQaLim9QmajdOk2I2SNrMEIlARIoigU8Cek/4e7zdHaWOYOVwaoA6wOCw05Y7FB
+gE0tIWQ+sBcwKM8qoD/wB5wGL8hjfdzWrh01GRp1hInGjDoXwHgsFuzBVLQAAABDdEVYdFNvZnR3
+YXJlAEAoIylJbWFnZU1hZ2ljayA0LjIuOCA5OS8wOC8wMSBjcmlzdHlAbXlzdGljLmVzLmR1cG9u
+dC5jb22RuiG4AAAAKnRFWHRTaWduYXR1cmUANThhMDcyZTA3MGRhMjJmNjEzNWNiZDNlNDE0NTQ2
+ZjloaiHtAAAADnRFWHRQYWdlADEyeDEyKzArMIRtu30AAAAASUVORK5CYII="></td><td>
+Disables interactive commands
+</td></tr>
+</table></div>
+<div class="listingblock">
+<div class="title">Use as last line</div>
+<div class="content monospaced">
+<pre>set ACCEPT_DEFAULTS false; <img alt="1" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAAAAABzHgM7AAAAAmJLR0QAAKqNIzIAAABjSURBVHja
+VY6xDcAwCAS/pPQaLim9QmajdOk2I2SNrMEIlARIoigU8Cek/4e7zdHaWOYOVwaoA6wOCw05Y7FB
+gE0tIWQ+sBcwKM8qoD/wB5wGL8hjfdzWrh01GRp1hInGjDoXwHgsFuzBVLQAAABDdEVYdFNvZnR3
+YXJlAEAoIylJbWFnZU1hZ2ljayA0LjIuOCA5OS8wOC8wMSBjcmlzdHlAbXlzdGljLmVzLmR1cG9u
+dC5jb22RuiG4AAAAKnRFWHRTaWduYXR1cmUANThhMDcyZTA3MGRhMjJmNjEzNWNiZDNlNDE0NTQ2
+ZjloaiHtAAAADnRFWHRQYWdlADEyeDEyKzArMIRtu30AAAAASUVORK5CYII="></pre>
+</div></div>
+<div class="colist arabic"><table>
+<tr><td><img alt="1" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAAAAABzHgM7AAAAAmJLR0QAAKqNIzIAAABjSURBVHja
+VY6xDcAwCAS/pPQaLim9QmajdOk2I2SNrMEIlARIoigU8Cek/4e7zdHaWOYOVwaoA6wOCw05Y7FB
+gE0tIWQ+sBcwKM8qoD/wB5wGL8hjfdzWrh01GRp1hInGjDoXwHgsFuzBVLQAAABDdEVYdFNvZnR3
+YXJlAEAoIylJbWFnZU1hZ2ljayA0LjIuOCA5OS8wOC8wMSBjcmlzdHlAbXlzdGljLmVzLmR1cG9u
+dC5jb22RuiG4AAAAKnRFWHRTaWduYXR1cmUANThhMDcyZTA3MGRhMjJmNjEzNWNiZDNlNDE0NTQ2
+ZjloaiHtAAAADnRFWHRQYWdlADEyeDEyKzArMIRtu30AAAAASUVORK5CYII="></td><td>
+Reenables interactive commands
+</td></tr>
+</table></div>
+<div class="paragraph"><p>Now you can build the application in a single command:</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="gp">$</span>forge&gt; run generate.fsh
+</pre></div></div></div>
+<div class="paragraph"><p>That&#8217;s more like it! Now, let&#8217;s get the application running!</p></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_application_deployment">Application Deployment</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_deploying_your_first_java_ee_application_to_openshift_express">Deploying your first Java EE application to OpenShift Express</h3>
+<div class="paragraph"><p>There are two ways to deploy an application to OpenShift Express:</p></div>
+<div class="olist arabic"><ol class="arabic">
+<li>
+<p>
+<strong>Deploy the source</strong>
+</p>
+<div class="paragraph"><p>You can commit your source files and push them to the remote server using git, at which point the application will be built and deployed on the remote host. Alternatively, you can use a Jenkins slave to handle the build and deploy steps on the server. More on that later.</p></div>
+</li>
+<li>
+<p>
+<strong>Deploy a package</strong>
+</p>
+<div class="paragraph"><p>You can copy a pre-built war into <em>deployments/</em> (with the corresponding .dodeploy file for an exploded war) and use git to commit and push the file(s) to the remote server for deployment</p></div>
+</li>
+</ol></div>
+<div class="paragraph"><p>In the first scenarios, you edit the files locally and let OpenShift build the app using Maven and deploy it to JBoss AS 7 once you push the changes using git. In the second scenario, you build the application locally and just push the final package to OpenShift, which it will deploy to JBoss AS 7.</p></div>
+<div class="paragraph"><p>We&#8217;re going to take the source route.</p></div>
+<div class="paragraph"><p>First, add the following profile to the end of the pom.xml file (inside the root element):</p></div>
+<div class="listingblock">
+<div class="title">pom.xml (fragment)</div>
+<div class="content"><div class="highlight"><pre><span class="nt">&lt;profiles&gt;</span>
+  <span class="nt">&lt;profile&gt;</span>
+   <span class="c">&lt;!-- When built in OpenShift the &#39;openshift&#39; profile will be used when invoking mvn. --&gt;</span>
+   <span class="c">&lt;!-- Use this profile for any OpenShift specific customization your app will need. --&gt;</span>
+   <span class="c">&lt;!-- By default that is to put the resulting archive into the &#39;deployments&#39; folder. --&gt;</span>
+   <span class="c">&lt;!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html --&gt;</span>
+   <span class="nt">&lt;id&gt;</span>openshift<span class="nt">&lt;/id&gt;</span>
+   <span class="nt">&lt;build&gt;</span>
+      <span class="nt">&lt;finalName&gt;</span>sellmore<span class="nt">&lt;/finalName&gt;</span>
+      <span class="nt">&lt;plugins&gt;</span>
+        <span class="nt">&lt;plugin&gt;</span>
+          <span class="nt">&lt;artifactId&gt;</span>maven-war-plugin<span class="nt">&lt;/artifactId&gt;</span>
+          <span class="nt">&lt;version&gt;</span>2.1.1<span class="nt">&lt;/version&gt;</span>
+          <span class="nt">&lt;configuration&gt;</span>
+            <span class="nt">&lt;outputDirectory&gt;</span>deployments<span class="nt">&lt;/outputDirectory&gt;</span>
+            <span class="nt">&lt;warName&gt;</span>ROOT<span class="nt">&lt;/warName&gt;</span>
+          <span class="nt">&lt;/configuration&gt;</span>
+        <span class="nt">&lt;/plugin&gt;</span>
+      <span class="nt">&lt;/plugins&gt;</span>
+    <span class="nt">&lt;/build&gt;</span>
+  <span class="nt">&lt;/profile&gt;</span>
+<span class="nt">&lt;/profiles&gt;</span>
+</pre></div></div></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img alt="Important" src="data:image/png;base64,
+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
+EQn3XQAAAABJRU5ErkJggg==">
+</td>
+<td class="content">If you forget this profile, then the application will build on OpenShift Express, but it will not be deployed to JBoss AS 7.</td>
+</tr></table>
+</div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img alt="Caution" src="data:image/png;base64,
+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">
+</td>
+<td class="content">You may want to add the Eclipse project files to <em>.gitignore</em> so that they aren&#8217;t committed.</td>
+</tr></table>
+</div>
+<div class="paragraph"><p>Next, we&#8217;ll add all the new files to git, commit them and push them to the server. You can perform these operations directly inside the Forge shell:</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="gp">$</span>forge&gt; git add pom.xml src
+<span class="gp">$</span>forge&gt; git commit -a -m <span class="s1">&#39;new project&#39;</span>
+<span class="gp">$</span>forge&gt; git push openshift master
+</pre></div></div></div>
+<div class="paragraph"><p>You&#8217;ll see the OpenShift begin the build lifecycle on the server, which includes executing Maven and downloading the (nearby) internet. The console output you&#8217;re seeing is from the remote server being echoed into your local console.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_openshift_express_build_lifecycle">OpenShift Express Build Lifecycle</h3>
+<div class="paragraph"><p>The OpenShift Express build lifecycle comprises four steps:</p></div>
+<div class="olist arabic"><ol class="arabic">
+<li>
+<p>
+<strong>Pre-Receive</strong>
+</p>
+<div class="paragraph"><p>Occurs when you run a git push command, but before the push is fully committed.</p></div>
+</li>
+<li>
+<p>
+<strong>Build</strong>
+</p>
+<div class="paragraph"><p>Builds your application, downloads required dependencies, executes the <em>.openshift/action_hooks/build</em> script and prepares everything for deployment.</p></div>
+</li>
+<li>
+<p>
+<strong>Deploy</strong>
+</p>
+<div class="paragraph"><p>Performs any required tasks necessary to prepare the application for starting, including running the <em>.openshift/action_hooks/deploy</em> script. This step occurs immediately before the application is issued a start command.</p></div>
+</li>
+<li>
+<p>
+<strong>Post-Deploy</strong>
+</p>
+<div class="paragraph"><p>Allows for interaction with the running application, including running the <em>.openshift/action_hooks/post_deploy</em> script. This step occurs immediately after the application is started.</p></div>
+</li>
+</ol></div>
+<div class="paragraph"><p>When the build is done, you&#8217;ll notice that the application is deployed to JBoss AS 7. You can now visit the application URL again to see the application running.</p></div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph"><p>http://sellmore-[domain name].rhcloud.com</p></div>
+</div></div>
+<div class="paragraph"><p>You should see the Forge welcome page and a list of items in the sidebar you can create, read, update and delete (CRUD).</p></div>
+<div class="paragraph"><p>If you want to push out a new change, simply update a file, then use git to commit and push again:</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="gp">$</span>forge&gt; git commit -a -m <span class="s1">&#39;first change&#39;</span>
+<span class="gp">$</span>forge&gt; git push openshift master
+</pre></div></div></div>
+<div class="paragraph"><p>The OpenShift Expression build lifecycle will kick off again. Shortly after it completes, the change will be visible in the application.</p></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_application_management">Application Management</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_managing_openshift_express_applications_from_a_shell_environment">Managing OpenShift Express applications from a shell environment</h3>
+<div class="paragraph"><p>OpenShift isn&#8217;t just a black box (black cloud?), it&#8217;s Linux and it&#8217;s open! That means you can shell into your cloud just as you would any (decent) hosting environment.</p></div>
+<div class="paragraph"><p>So what&#8217;s the login? It&#8217;s embedded there in the git repository URL. Let&#8217;s find it.</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="gp">$</span>&gt; git remote show -n openshift
+</pre></div></div></div>
+<div class="paragraph"><p>You can also get the same information using:</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="gp">$</span>&gt; rhc-domain-info -a
+</pre></div></div></div>
+<div class="paragraph"><p>You are looking for the ssh username and host in the form <span class="monospaced">username@hostname</span>. Once you&#8217;ve got that, just pass it to ssh and the authentication will be handled by the ssh key you setup earlier. Here&#8217;s the syntax:</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="gp">$</span>&gt; ssh <span class="o">[</span>UUID<span class="o">]</span>@<span class="o">[</span>application name<span class="o">]</span>-<span class="o">[</span>domain name<span class="o">]</span>.rhcloud.com
+</pre></div></div></div>
+<div class="paragraph"><p>There&#8217;s a lot of power in that shell environment. You can type help to get a list of speciality commands (such as starting, stopping or restarting your app), or use just about any Linux shell command you know. Be sure to pay attention to what you&#8217;re typing, though rest assured that the box is running on <abbr title="Red Hat Enterprise Linux">RHEL</abbr> secured with SELinux.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_viewing_the_log_files">Viewing the log files</h3>
+<div class="paragraph"><p>There are two ways to view (tail) the log files of your application. You can use the client tool:</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="gp">$</span>&gt; rhc-tail-files -a sellmore
+</pre></div></div></div>
+<div class="paragraph"><p>Or you can shell into the server and use the built-in tail command:</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="gp">$</span>&gt; tail_all
+</pre></div></div></div>
+<div class="paragraph"><p>You can also use the regular tail command in the remote shell environment.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_restarting_or_stopping_your_application">Restarting or stopping your application</h3>
+<div class="paragraph"><p>You can control your application directly without pushing files through git. One way is to use the client tool from your location machine:</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="gp">$</span>&gt; rhc-ctl-app -c restart
+</pre></div></div></div>
+<div class="paragraph"><p>You can also shell into your domain and execute a command using one of the special commands provided:</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="gp">$</span>&gt; ctl_app restart
+</pre></div></div></div>
+<div class="paragraph"><p>In addition to restart, you can use the commands start, stop, etc.</p></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_persistence_storage">Persistence Storage</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_preserving_the_database_between_restarts">Preserving the database between restarts</h3>
+<div class="paragraph"><p>You may have noticed that each time we restart the application, the data gets lost. There are two ways to resolve this:</p></div>
+<div class="olist arabic"><ol class="arabic">
+<li>
+<p>
+Update tables rather that dropping and recreating them on deployment
+</p>
+</li>
+<li>
+<p>
+Save the data to a safe location on disk
+</p>
+</li>
+</ol></div>
+<div class="paragraph"><p>The first setting is a feature of Hibernate (or alternate JPA provider) and is changed using the following property in <em>src/main/resources/META-INF/persistence.xml</em>:</p></div>
+<div class="listingblock">
+<div class="title">src/main/resources/META-INF/persistence.xml (fragment)</div>
+<div class="content"><div class="highlight"><pre><span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;hibernate.hbm2ddl.auto&quot;</span> <span class="na">value=</span><span class="s">&quot;update&quot;</span><span class="nt">/&gt;</span>
+</pre></div></div></div>
+<div class="paragraph"><p>The second feature depends on the database you are using. If you are using the provided H2 database, you&#8217;ll likely want to change the configuration in <em>.openshift/config/standalone.xml</em> to use the OpenShift Express data directory:</p></div>
+<div class="listingblock">
+<div class="title">.openshift/config/standalone.xml (fragment)</div>
+<div class="content"><div class="highlight"><pre><span class="nt">&lt;connection-url&gt;</span>jdbc:h2:${OPENSHIFT_DATA_DIR}/test;DB_CLOSE_DELAY=-1<span class="nt">&lt;/connection-url&gt;</span>
+</pre></div></div></div>
+<div class="paragraph"><p>The other approach is just to use a regular client-server database (e.g., MySQL or PostgreSQL), which we&#8217;ll do later.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_persisting_data_to_a_mysql_database">Persisting data to a MySQL database</h3>
+<div class="paragraph"><p>OpenShift Express provides us with several add-on services (cartridges) we can use. To see the list of available cartridges, issue the following command:</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="gp">$</span>&gt; rhc-ctl-app -a sellmore -L
+
+<span class="go">List of supported embedded cartridges:</span>
+
+<span class="go">  postgresql-8.4, metrics-0.1, mysql-5.1, jenkins-client-1.4,</span>
+<span class="go">  10gen-mms-agent-0.1, phpmyadmin-3.4, rockmongo-1.1, mongodb-2.0</span>
+</pre></div></div></div>
+<div class="paragraph"><p>Oh goody! Lots of options :)</p></div>
+<div class="paragraph"><p>Let&#8217;s install mysql-5.1 cartridge:</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="gp">$</span>&gt; rhc-ctl-app -a sellmore -e add-mysql-5.1
+
+<span class="go">Mysql 5.1 database added. Please make note of these credentials:</span>
+
+<span class="go">   Root User: admin</span>
+<span class="go">   Root Password: xxxxx</span>
+<span class="go">   Database Name: sellmore</span>
+
+<span class="go">Connection URL: mysql://127.1.47.1:3306/</span>
+
+<span class="go">You can manage your new Mysql database by also embedding phpmyadmin-3.4.</span>
+</pre></div></div></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img alt="Note" src="data:image/png;base64,
+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">
+</td>
+<td class="content">The name of the database is the same as the name of the application.</td>
+</tr></table>
+</div>
+<div class="paragraph"><p>OpenShift Express is telling us that phpmyadmin cartridge is also available, so we&#8217;ll add it as well.</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="gp">$</span>&gt; rhc-ctl-app -a sellmore -e add-phpmyadmin-3.4
+
+<span class="go">phpMyAdmin 3.4 added. Please make note of these credentials:</span>
+
+<span class="go">   Root User: admin</span>
+<span class="go">   Root Password: xxxxx</span>
+
+<span class="go">URL: https://sellmore-[domain name].rhcloud.com/phpmyadmin/</span>
+</pre></div></div></div>
+<div class="paragraph"><p>Open a browser and go to the URL shown, then login as admin with the password reported by the previous command.</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img alt="Caution" src="data:image/png;base64,
+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">
+</td>
+<td class="content">It&#8217;s a good idea to create another user with limited privileges (select, insert, update, delete, create, index and drop) on the same database.</td>
+</tr></table>
+</div>
+<div class="paragraph"><p>You can also shell into the domain and control MySQL using the MySQL client. You&#8217;ll need to connect using the hostname provided when you added the cartridge since it&#8217;s running on a different interface (not through a local socket).</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="gp">$</span>&gt; mysql -u <span class="nv">$OPENSHIFT_DB_USERNAME</span> -p<span class="nv">$OPENSHIFT_DB_PASSWORD</span> -h <span class="nv">$OPENSHIFT_DB_HOST</span>
+</pre></div></div></div>
+<div class="paragraph"><p>Now we&#8217;ll configure our application to use OpenShift&#8217;s MySQL database when running in the cloud.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_switching_the_application_datastore_to_mysql">Switching the application datastore to MySQL</h3>
+<div class="paragraph"><p>The JBoss AS 7 cartridge comes configured out of the box with datasources for H2 (embedded), MySQL and PostgreSQL. The datasources for MySQL and PostgreSQL are enabled automatically when the respective cartridges are added. You can find this configuration in <em>.openshift/config/standalone.xml</em>.</p></div>
+<div class="paragraph"><p>Here&#8217;s the datasource name that cooresponds to the MySQL connection pool:</p></div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph"><p>java:jboss/datasources/MysqlDS</p></div>
+</div></div>
+<div class="paragraph"><p>The connection URL uses values that are automatically populated via environment variables maintained by OpenShift.</p></div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph"><p>jdbc:mysql://${OPENSHIFT_DB_HOST}:${OPENSHIFT_DB_PORT}/${OPENSHIFT_APP_NAME}</p></div>
+</div></div>
+<div class="paragraph"><p>All you need to do is open up the <em>src/main/resources/META-INF/persistence.xml</em> and set the JTA datasource:</p></div>
+<div class="listingblock">
+<div class="title">src/main/resources/META-INF/persistence.xml (fragment)</div>
+<div class="content"><div class="highlight"><pre><span class="nt">&lt;jta-data-source&gt;</span>java:jboss/datasources/MysqlDS<span class="nt">&lt;/jta-data-source&gt;</span>
+</pre></div></div></div>
+<div class="paragraph"><p>If you want to use PostgreSQL, follow the steps above for setting up MySQL, but replace it with the PostgreSQL cartridge (postgresql-8.4). Then, you&#8217;ll use this datasource in your persistence.xml:</p></div>
+<div class="listingblock">
+<div class="title">src/main/resources/META-INF/persistence.xml (fragment)</div>
+<div class="content"><div class="highlight"><pre><span class="nt">&lt;jta-data-source&gt;</span>java:jboss/datasources/PostgreSQLDS<span class="nt">&lt;/jta-data-source&gt;</span>
+</pre></div></div></div>
+<div class="paragraph"><p>You can connect to the PostgreSQL prompt on the domain using this command:</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="gp">$</span>&gt; psql -h <span class="nv">$OPENSHIFT_DB_HOST</span> -U <span class="nv">$OPENSHIFT_DB_USERNAME</span> -d <span class="nv">$OPENSHIFT_APP_NAME</span>
+</pre></div></div></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_advanced_deployment">Advanced Deployment</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_building_with_jenkins">Building with Jenkins</h3>
+<div class="paragraph"><p>Jenkins is a continous integration (CI) server. When installed in an OpenShift Express environment, Jenkins takes over as the build manager for your application. You now have two options for how to build and deploy on OpenShift:</p></div>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+Building without Jenkins
+</dt>
+<dd>
+<p>
+    Uses your application space as part of the build and test process. Because of this, the application is stopped to free memory while the build is running.
+</p>
+</dd>
+<dt class="hdlist1">
+Building with Jenkins
+</dt>
+<dd>
+<p>
+    Uses dedicated application space that can be larger then the application runtime space. Because the build happens in its own dedicated jail, the running application is not shutdown or changed in any way until after the build is a success.
+</p>
+</dd>
+</dl></div>
+<div class="paragraph"><p>Here are the benefits to using Jenkins:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+Archived build information
+</p>
+</li>
+<li>
+<p>
+No application downtime during the build process
+</p>
+</li>
+<li>
+<p>
+Failed builds do not get deployed (leaving the previous working version in place).
+</p>
+</li>
+<li>
+<p>
+Jenkins builders have additional resources like memory and storage
+</p>
+</li>
+<li>
+<p>
+A large community of Jenkins plugins (300+)
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>To enable Jenkins to use with an existing application, you first create a dedicated jenkins application:</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="gp">$</span>&gt; rhc-create-app -a builds -t jenkins-1.4
+</pre></div></div></div>
+<div class="paragraph"><p>Then you add the Jenkins client to your own application:</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="gp">$</span>&gt; rhc-ctl-app -a sellmore -e add-jenkins-client-1.4
+</pre></div></div></div>
+<div class="paragraph"><p>Make a note of the admin account password for Jenkins and point your browser at the following URL:</p></div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph"><p>http://builds-[domain name].rhcloud.com</p></div>
+</div></div>
+<div class="paragraph"><p>Once you are there, you can click "log in" in the top right of the Jenkins window to sign in and start tweaking the Jenkins configuration.</p></div>
+<div class="paragraph"><p>Now you simply have to do a git push to remote branch and Jenkins will take over building and deploying your application.</p></div>
+<div class="paragraph"><p>The pre-Jenkins way of doing this was to fire off a command line build and dump the output to the screen. You&#8217;ll notice that this output is replaced with a URL where you can view the output and status of the build.</p></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_integration_testing">Integration Testing</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_writing_real_cloud_tests_with_arquillian">Writing real cloud tests with Arquillian</h3>
+<div class="paragraph"><p>Bring your tests to the runtime instead of managing the runtime from your test. Isn&#8217;t the cloud one of those runtimes? It sure is!</p></div>
+<div class="paragraph"><p>Let&#8217;s use Arquillian to write some tests that run on a local JBoss AS instance. Later, we&#8217;ll get them running on OpenShift Express.</p></div>
+<div class="paragraph"><p>Setting up Arquillian requires thought. Let&#8217;s put those 10,000 monkeys to work again. Open up Forge and see if it can find a plugin to help us get started with Arquillian.</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="gp">$</span>forge&gt; forge find-plugin arquillian
+</pre></div></div></div>
+<div class="paragraph"><p>Sure enough, there it is!</p></div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre>- arquillian (org.arquillian.forge:arquillian-plugin:::1.0.0-SNAPSHOT)
+       Author: Paul Bakker &lt;paul.bakker.nl@gmail.com&gt;
+       Website: http://www.jboss.org/arquillian
+       Location: git://github.com/forge/plugin-arquillian.git
+       Tags: arquillian, jboss, testing, junit, testng, integration testing, tests, CDI, java ee
+       Description: Integration Testing Framework</pre>
+</div></div>
+<div class="paragraph"><p>Let&#8217;s snag it.</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="gp">$</span>forge&gt; forge install-plugin arquillian
+</pre></div></div></div>
+<div class="paragraph"><p>That will clone the plugin source, build it and install it into the Forge shell. Once it&#8217;s finished, we can get straight to the Arquillian setup. We&#8217;ll first create a profile for a JBoss AS 7 instance running locally.</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="gp">$</span>forge&gt; setup arquillian --container JBOSS_AS_REMOTE_7.X
+</pre></div></div></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img alt="Note" src="data:image/png;base64,
+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">
+</td>
+<td class="content">
+<div class="paragraph"><p>At the time of writing, the plugin puts the Arquillian <abbr title="Bill of Materials">BOM</abbr> dependency in the wrong section. Move it into the dependencyManagement section below the others:</p></div>
+<div class="listingblock">
+<div class="title">pom.xml</div>
+<div class="content"><div class="highlight"><pre><span class="nt">&lt;dependencyManagement&gt;</span>
+  <span class="nt">&lt;dependencies&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+      <span class="nt">&lt;groupId&gt;</span>org.jboss.arquillian<span class="nt">&lt;/groupId&gt;</span>
+      <span class="nt">&lt;artifactId&gt;</span>arquillian-bom<span class="nt">&lt;/artifactId&gt;</span>
+      <span class="nt">&lt;version&gt;</span>1.0.0.CR7<span class="nt">&lt;/version&gt;</span>
+      <span class="nt">&lt;type&gt;</span>pom<span class="nt">&lt;/type&gt;</span>
+      <span class="nt">&lt;scope&gt;</span>import<span class="nt">&lt;/scope&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;/dependencies&gt;</span>
+<span class="nt">&lt;/dependencyManagement&gt;</span>
+</pre></div></div></div>
+<div class="paragraph"><p>You can also remove the version from the <span class="monospaced">arquillian-junit-container</span> dependency. Both of these problems will be fixed in the next release of the plugin.</p></div>
+</td>
+</tr></table>
+</div>
+<div class="paragraph"><p>We can also use the Forge Arquillian plugin to create tests for us. Let&#8217;s create an integration test for one of the services created earlier:</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="gp">$</span>forge&gt; arquillian create-test --class com.acme.sellmore.rest.ItemEndpoint --enableJPA
+</pre></div></div></div>
+<div class="paragraph"><p>This test is going to read and write to a database. You probably don&#8217;t want to mix test data with application data, so first copy the JPA descriptor (persistence.xml) to the test classpath and prefix the file with test- so it doesn&#8217;t get mixed up:</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="gp">$</span>forge&gt; <span class="nb">cd</span> ~~
+<span class="gp">$</span>forge&gt; cp src/main/resources/META-INF/persistence.xml src/test/resources/test-persistence.xml
+</pre></div></div></div>
+<div class="paragraph"><p>Make sure the <em>test-persistence.xml</em> uses the ExampleDS datasource (or whatever you want to use for tests).</p></div>
+<div class="paragraph"><p>Next, open up the test in your editor so we can work it into a useful test. Begin by updating the ShrinkWrap archive builder to snag the JPA descriptor from the test classpath (instead of the production one):</p></div>
+<div class="listingblock">
+<div class="title">src/test/java/com/acme/sellmore/rest/ItemEndpointTest.java (fragment)</div>
+<div class="content"><div class="highlight"><pre><span class="o">.</span><span class="na">addAsManifestResource</span><span class="o">(</span><span class="s">&quot;test-persistence.xml&quot;</span><span class="o">,</span> <span class="s">&quot;persistence.xml&quot;</span><span class="o">)</span>
+</pre></div></div></div>
+<div class="paragraph"><p>Assign the <span class="monospaced">@Test</span> method a meaninful name and replace the contents with logic to validate that an item can be created in one transaction and retrieved in another:</p></div>
+<div class="listingblock">
+<div class="title">src/test/java/com/acme/sellmore/rest/ItemEndpointTest.java (fragment)</div>
+<div class="content"><div class="highlight"><pre><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">should_insert_and_select_item</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">Item</span> <span class="n">item</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Item</span><span class="o">();</span>
+    <span class="n">item</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="s">&quot;Widget&quot;</span><span class="o">);</span>
+    <span class="n">item</span><span class="o">.</span><span class="na">setPrice</span><span class="o">(</span><span class="mf">5.0</span><span class="o">);</span>
+    <span class="n">item</span><span class="o">.</span><span class="na">setStock</span><span class="o">(</span><span class="mi">100</span><span class="o">);</span>
+    <span class="n">item</span> <span class="o">=</span> <span class="n">itemendpoint</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="n">item</span><span class="o">);</span>
+    <span class="n">Long</span> <span class="n">id</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="na">getId</span><span class="o">();</span>
+    <span class="n">Assert</span><span class="o">.</span><span class="na">assertNotNull</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+    <span class="n">Assert</span><span class="o">.</span><span class="na">assertTrue</span><span class="o">(</span><span class="n">id</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">);</span>
+    <span class="n">Assert</span><span class="o">.</span><span class="na">assertEquals</span><span class="o">(</span><span class="n">item</span><span class="o">.</span><span class="na">getVersion</span><span class="o">(),</span> <span class="mi">0</span><span class="o">);</span>
+
+    <span class="n">item</span> <span class="o">=</span> <span class="n">itemendpoint</span><span class="o">.</span><span class="na">findById</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+    <span class="n">Assert</span><span class="o">.</span><span class="na">assertNotNull</span><span class="o">(</span><span class="n">item</span><span class="o">);</span>
+    <span class="n">Assert</span><span class="o">.</span><span class="na">assertEquals</span><span class="o">(</span><span class="s">&quot;Widget&quot;</span><span class="o">,</span> <span class="n">item</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+<span class="o">}</span>
+</pre></div></div></div>
+<div class="paragraph"><p>The test is ready to run. First, start JBoss AS 7.</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="gp">$</span>&gt; <span class="nb">cd</span> <span class="nv">$JBOSS_HOME</span>
+<span class="gp">$</span>&gt; ./bin/standalone.sh
+</pre></div></div></div>
+<div class="paragraph"><p>Run the Arquillian test on this instance by activating the cooresponding profile when running the Maven test command:</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="gp">$</span>forge&gt; <span class="nb">test</span> --profile JBOSS_AS_REMOTE_7.X
+</pre></div></div></div>
+<div class="paragraph"><p>If things go we&#8217;ll, the tests will pass and you&#8217;ll see some Hibernate queries in the JBoss AS console. &#8220;Green bar!&#8221;</p></div>
+<div class="paragraph"><p>The previous test runs inside the container. Let&#8217;s write another test that acts as a client to the REST endpoint. To keep effort to a minimum, we&#8217;ll use the <a href="http://hc.apache.org/httpcomponents-client-ga">Apache HttpComponents HttpClient</a> library to invoke the HTTP endpoints. We can get Forge to add it to our build:</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="gp">$</span>forge&gt; project add-dependency org.apache.httpcomponents:httpclient:4.1.2:test
+</pre></div></div></div>
+<div class="paragraph"><p>Let&#8217;s REST!</p></div>
+<div class="paragraph"><p>Sigh. There&#8217;s no better way to do this at the moment, so copy the previous test and rename it to <span class="monospaced">ItemEndpointClientTest</span> (rename both the file and the class name). Then, replace the class definition with the following source:</p></div>
+<div class="listingblock">
+<div class="title">src/test/java/com/acme/sellmore/rest/ItemEndpointClientTest.java</div>
+<div class="content"><div class="highlight"><pre><span class="nd">@RunWith</span><span class="o">(</span><span class="n">Arquillian</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ItemEndpointClientTest</span> <span class="o">{</span>
+    <span class="nd">@ArquillianResource</span>
+    <span class="kd">private</span> <span class="n">URL</span> <span class="n">deploymentUrl</span><span class="o">;</span>
+
+    <span class="nd">@Deployment</span><span class="o">(</span><span class="n">testable</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">WebArchive</span> <span class="nf">createDeployment</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">ShrinkWrap</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="n">WebArchive</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="s">&quot;test.war&quot;</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">addClasses</span><span class="o">(</span><span class="n">Item</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">ItemEndpoint</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">addAsResource</span><span class="o">(</span><span class="s">&quot;META-INF/persistence.xml&quot;</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">addAsWebInfResource</span><span class="o">(</span><span class="n">EmptyAsset</span><span class="o">.</span><span class="na">INSTANCE</span><span class="o">,</span> <span class="s">&quot;beans.xml&quot;</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">setWebXML</span><span class="o">(</span><span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">&quot;src/main/webapp/WEB-INF/web.xml&quot;</span><span class="o">));</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">should_post_update_and_get_item</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">DefaultHttpClient</span> <span class="n">client</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DefaultHttpClient</span><span class="o">();</span>
+        <span class="n">String</span> <span class="n">itemResourceUrl</span> <span class="o">=</span> <span class="n">deploymentUrl</span> <span class="o">+</span> <span class="s">&quot;rest/item&quot;</span><span class="o">;</span>
+
+        <span class="n">String</span> <span class="n">ITEM_XML</span> <span class="o">=</span> <span class="s">&quot;&lt;item&gt;%1$s&lt;name&gt;Widget&lt;/name&gt;&lt;price&gt;5.0&lt;/price&gt;&lt;stock&gt;%3$d&lt;/stock&gt;%1$s&lt;/item&gt;&quot;</span><span class="o">;</span>
+
+        <span class="c1">// POST new item</span>
+        <span class="n">HttpPost</span> <span class="n">post</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HttpPost</span><span class="o">(</span><span class="n">itemResourceUrl</span><span class="o">);</span>
+        <span class="n">post</span><span class="o">.</span><span class="na">setEntity</span><span class="o">(</span><span class="n">createXmlEntity</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="n">ITEM_XML</span><span class="o">,</span> <span class="s">&quot;&quot;</span><span class="o">,</span> <span class="s">&quot;&quot;</span><span class="o">,</span> <span class="mi">99</span><span class="o">)));</span>
+
+        <span class="n">String</span> <span class="n">result</span> <span class="o">=</span> <span class="n">execute</span><span class="o">(</span><span class="n">post</span><span class="o">,</span> <span class="n">client</span><span class="o">);</span>
+        <span class="n">assertEquals</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="n">ITEM_XML</span><span class="o">,</span> <span class="s">&quot;&lt;id&gt;1&lt;/id&gt;&quot;</span><span class="o">,</span> <span class="s">&quot;&lt;version&gt;0&lt;/version&gt;&quot;</span><span class="o">,</span> <span class="mi">99</span><span class="o">),</span> <span class="n">result</span><span class="o">);</span>
+
+        <span class="c1">// PUT update to item 1</span>
+        <span class="n">HttpPut</span> <span class="n">put</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HttpPut</span><span class="o">(</span><span class="n">itemResourceUrl</span> <span class="o">+</span> <span class="s">&quot;/1&quot;</span><span class="o">);</span>
+        <span class="n">put</span><span class="o">.</span><span class="na">setEntity</span><span class="o">(</span><span class="n">createXmlEntity</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="n">ITEM_XML</span><span class="o">,</span> <span class="s">&quot;&quot;</span><span class="o">,</span> <span class="s">&quot;&quot;</span><span class="o">,</span> <span class="mi">98</span><span class="o">)));</span>
+
+        <span class="n">execute</span><span class="o">(</span><span class="n">put</span><span class="o">,</span> <span class="n">client</span><span class="o">);</span>
+
+        <span class="c1">// GET item 1</span>
+        <span class="n">HttpGet</span> <span class="n">get</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HttpGet</span><span class="o">(</span><span class="n">itemResourceUrl</span> <span class="o">+</span> <span class="s">&quot;/1&quot;</span><span class="o">);</span>
+        <span class="n">get</span><span class="o">.</span><span class="na">setHeader</span><span class="o">(</span><span class="s">&quot;Accepts&quot;</span><span class="o">,</span> <span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_XML</span><span class="o">);</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="n">execute</span><span class="o">(</span><span class="n">get</span><span class="o">,</span> <span class="n">client</span><span class="o">);</span>
+        <span class="n">assertEquals</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="n">ITEM_XML</span><span class="o">,</span> <span class="s">&quot;&lt;id&gt;1&lt;/id&gt;&quot;</span><span class="o">,</span> <span class="s">&quot;&lt;version&gt;1&lt;/version&gt;&quot;</span><span class="o">,</span> <span class="mi">98</span><span class="o">),</span> <span class="n">result</span><span class="o">);</span>
+
+        <span class="n">client</span><span class="o">.</span><span class="na">getConnectionManager</span><span class="o">().</span><span class="na">shutdown</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div></div></div>
+<div class="paragraph"><p>Also add these two private helper methods (to hide away some of the boilerplate code):</p></div>
+<div class="listingblock">
+<div class="title">src/test/java/com/acme/sellmore/rest/ItemEndpointClientTest.java (fragment)</div>
+<div class="content"><div class="highlight"><pre><span class="kd">private</span> <span class="n">HttpEntity</span> <span class="nf">createXmlEntity</span><span class="o">(</span><span class="kd">final</span> <span class="n">String</span> <span class="n">xml</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">ContentProducer</span> <span class="n">cp</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ContentProducer</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">writeTo</span><span class="o">(</span><span class="n">OutputStream</span> <span class="n">outstream</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+            <span class="n">Writer</span> <span class="n">writer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">OutputStreamWriter</span><span class="o">(</span><span class="n">outstream</span><span class="o">,</span> <span class="s">&quot;UTF-8&quot;</span><span class="o">);</span>
+            <span class="n">writer</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">xml</span><span class="o">);</span>
+            <span class="n">writer</span><span class="o">.</span><span class="na">flush</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">};</span>
+
+    <span class="n">AbstractHttpEntity</span> <span class="n">entity</span> <span class="o">=</span> <span class="k">new</span> <span class="n">EntityTemplate</span><span class="o">(</span><span class="n">cp</span><span class="o">);</span>
+    <span class="n">entity</span><span class="o">.</span><span class="na">setContentType</span><span class="o">(</span><span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_XML</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">entity</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="kd">private</span> <span class="n">String</span> <span class="nf">execute</span><span class="o">(</span><span class="kd">final</span> <span class="n">HttpUriRequest</span> <span class="n">request</span><span class="o">,</span> <span class="kd">final</span> <span class="n">HttpClient</span> <span class="n">client</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">try</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">request</span><span class="o">.</span><span class="na">getMethod</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot; &quot;</span> <span class="o">+</span> <span class="n">request</span><span class="o">.</span><span class="na">getURI</span><span class="o">());</span>
+        <span class="k">return</span> <span class="n">client</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="n">request</span><span class="o">,</span> <span class="k">new</span> <span class="n">BasicResponseHandler</span><span class="o">())</span>
+                <span class="o">.</span><span class="na">replaceFirst</span><span class="o">(</span><span class="s">&quot;&lt;\\?xml.*\\?&gt;&quot;</span><span class="o">,</span> <span class="s">&quot;&quot;</span><span class="o">).</span><span class="na">trim</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="n">Assert</span><span class="o">.</span><span class="na">fail</span><span class="o">(</span><span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="k">finally</span> <span class="o">{</span>
+        <span class="n">request</span><span class="o">.</span><span class="na">abort</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div></div></div>
+<div class="paragraph"><p>Let&#8217;s see if these endpoints do what they claim to do.</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="gp">$</span>forge&gt; <span class="nb">test</span> --profile JBOSS_AS_REMOTE_7.X
+</pre></div></div></div>
+<div class="paragraph"><p>If you get a test failure, it may be because the type the endpoints are configured to consume is incorrect. Open the <span class="monospaced">ItemEndpoint</span> class and replace all instances of <span class="monospaced">@Consumes</span> with:</p></div>
+<div class="listingblock">
+<div class="title">src/main/java/com/acme/sellmore/rest/ItemEndpoint.java</div>
+<div class="content"><div class="highlight"><pre><span class="nd">@Consumes</span><span class="o">(</span><span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_XML</span><span class="o">)</span>
+</pre></div></div></div>
+<div class="paragraph"><p>Run the tests again. With any luck, this time you&#8217;ll be chanting &#8220;Green bar!&#8221;</p></div>
+</div>
+<div class="sect2">
+<h3 id="_running_the_arquillian_tests_on_openshift_express">Running the Arquillian tests on OpenShift Express</h3>
+<div class="paragraph"><p>Okay, now you can say it. "Let&#8217;s take it to the cloud!" If they work there, they&#8217;ll work anywhere :)</p></div>
+<div class="paragraph"><p>It&#8217;s up to you whether you want to run the tests on the same OpenShift application as the production application or whether you want to create a dedicated application. We&#8217;ll assume you&#8217;re going to create a dedicated application. Let&#8217;s call it ike.</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="gp">$</span>&gt; rhc-create-app -t jbossas-7.0 -a ike
+</pre></div></div></div>
+<div class="paragraph"><p>You&#8217;ll also need an Arquillian profile. The Forge plugin doesn&#8217;t honor the OpenShift adapter yet, so you&#8217;ll have splice this profile into the pom.xml by hand:</p></div>
+<div class="listingblock">
+<div class="title">pom.xml (fragment)</div>
+<div class="content"><div class="highlight"><pre><span class="nt">&lt;profile&gt;</span>
+  <span class="nt">&lt;id&gt;</span>OPENSHIFT_EXPRESS_1.X<span class="nt">&lt;/id&gt;</span>
+  <span class="nt">&lt;dependencies&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+      <span class="nt">&lt;groupId&gt;</span>org.jboss.arquillian.container<span class="nt">&lt;/groupId&gt;</span>
+      <span class="nt">&lt;artifactId&gt;</span>arquillian-openshift-express<span class="nt">&lt;/artifactId&gt;</span>
+      <span class="nt">&lt;version&gt;</span>1.0.0.Alpha1<span class="nt">&lt;/version&gt;</span>
+      <span class="nt">&lt;scope&gt;</span>test<span class="nt">&lt;/scope&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;/dependencies&gt;</span>
+<span class="nt">&lt;/profile&gt;</span>
+</pre></div></div></div>
+<div class="paragraph"><p>The Arquillian OpenShift Express adapter also uses git push to deploy the test archive. In order for that to work, it needs to know where it&#8217;s pushing. In other words, it needs a little configuration.</p></div>
+<div class="paragraph"><p>Seed an arquillian.xml descriptor using a known container (in this case, JBoss AS 7 remote):</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="gp">$</span>forge&gt; arquillian configure-container --profile JBOSS_AS_REMOTE_7.X
+</pre></div></div></div>
+<div class="paragraph"><p>Next, replace the container element with the following XML:</p></div>
+<div class="listingblock">
+<div class="title">src/test/resources/arquillian.xml (fragment)</div>
+<div class="content"><div class="highlight"><pre><span class="nt">&lt;container</span> <span class="na">qualifier=</span><span class="s">&quot;OPENSHIFT_EXPRESS_1.X&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;configuration&gt;</span>
+    <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;namespace&quot;</span><span class="nt">&gt;</span>mojavelinux<span class="nt">&lt;/property&gt;</span>
+    <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;application&quot;</span><span class="nt">&gt;</span>ike<span class="nt">&lt;/property&gt;</span>
+    <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;sshUserName&quot;</span><span class="nt">&gt;</span>02b0951a5ed54c98b54c41a7f2efbda8<span class="nt">&lt;/property&gt;</span>
+    <span class="c">&lt;!-- Passphrase can be specified using the environment variable SSH_PASSPHRASE --&gt;</span>
+    <span class="c">&lt;!-- &lt;property name=&quot;passphrase&quot;&gt;&lt;/property&gt; --&gt;</span>
+    <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;login&quot;</span><span class="nt">&gt;</span>dan.j.allen@gmail.com<span class="nt">&lt;/property&gt;</span>
+  <span class="nt">&lt;/configuration&gt;</span>
+<span class="nt">&lt;/container&gt;</span>
+</pre></div></div></div>
+<div class="paragraph"><p>You can either put the passphrase for your SSH key in the descriptor or you can export the <span class="monospaced">SSH_PASSPHRASE</span> environment variable:</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="gp">$</span>&gt; <span class="nb">export </span><span class="nv">SSH_PASSPHRASE</span><span class="o">=[</span>libra_id_rsa passphrase<span class="o">]</span>
+</pre></div></div></div>
+<div class="paragraph"><p>To activate this container configuration, write the name of the qualifier to the <em>arquillian.launch</em> file (alternatively, you can select the configuration using the <span class="monospaced">-Darquillian.launch</span> flag when you run Maven):</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="gp">$</span>&gt; <span class="nb">echo</span> <span class="s2">&quot;OPENSHIFT_EXPRESS_1.X&quot;</span> &gt; src/test/resources/arquillian.launch
+</pre></div></div></div>
+<div class="paragraph"><p>Are you ready to see some tests run in the cloud?</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="gp">$</span>forge&gt; <span class="nb">test</span> --profile OPENSHIFT_EXPRESS_1.X
+</pre></div></div></div>
+<div class="paragraph"><p>You may want to tail the log files in another terminal to moniter the progress:</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="gp">$</span>&gt; rhc-tail-files -a ike
+</pre></div></div></div>
+<div class="paragraph"><p>If you can&#8217;t see the green bar, look above you :)</p></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_hosting_configuration">Hosting Configuration</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_making_your_application_a_top_level_domain">Making your application a top-level domain</h3>
+<div class="paragraph"><p>Do we expect that you&#8217;ll use *.rhcloud.com for all of your public websites? Of course not! That&#8217;s where the alias feature comes in.</p></div>
+<div class="paragraph"><p>You can create a domain alias for any OpenShift Express application using this command:</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="gp">$</span>&gt; rhc-ctl-app -a sellmore -c add-alias --alias sellmore.com
+</pre></div></div></div>
+<div class="paragraph"><p>Next, you point the DNS for your domain name to the IP address of your OpenShift Express server (or you can cheat by putting it in <em>/etc/hosts</em>).</p></div>
+<div class="paragraph"><p>Now you can access the application from the following URL:</p></div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph"><p>http://sellmore.com</p></div>
+</div></div>
+<div class="paragraph"><p>Congratulations! You&#8217;re OpenShift-hosted.</p></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_summary">Summary</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>In this tutorial, we learned how to:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+Register an account at OpenShift
+</p>
+</li>
+<li>
+<p>
+Install the Ruby-based OpenShift Express client tools
+</p>
+</li>
+<li>
+<p>
+Create our own OpenShift Express domain
+</p>
+</li>
+<li>
+<p>
+Create an OpenShift Express application using the JBoss AS 7 cartridge on that domain
+</p>
+</li>
+<li>
+<p>
+Add a remote OpenShift git repo to our own repo to deploy an existing app
+</p>
+</li>
+<li>
+<p>
+Deploy a Java EE application to OpenShift Express
+</p>
+</li>
+<li>
+<p>
+Work with the in-memory database
+</p>
+</li>
+<li>
+<p>
+Configure H2 to persist the database file to the application&#8217;s data directory
+</p>
+</li>
+<li>
+<p>
+Configure MySQL and phpmyadmin cartridges in OpenShift Express
+</p>
+</li>
+<li>
+<p>
+Configure our Java EE application to use the MySQL database running on the OpenShift Express domain
+</p>
+</li>
+</ul></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_resources">Resources</h2>
+<div class="sectionbody">
+<div class="ulist"><ul>
+<li>
+<p>
+Git repository for this tutorial<br>
+  <a href="http://tinyurl.com/dcjbug-jboss-workshop">http://tinyurl.com/dcjbug-jboss-workshop</a>
+</p>
+</li>
+<li>
+<p>
+OpenShift homepage<br>
+  <a href="http://openshift.com">http://openshift.com</a>
+</p>
+</li>
+<li>
+<p>
+OpenShift dashboard<br>
+  <a href="https://openshift.redhat.com/app/dashboard">https://openshift.redhat.com/app/dashboard</a>
+</p>
+</li>
+<li>
+<p>
+OpenShift Express Documentation<br>
+  <a href="http://docs.redhat.com/docs/en-US/OpenShift_Express/2.0/html/User_Guide">http://docs.redhat.com/docs/en-US/OpenShift_Express/2.0/html/User_Guide</a>
+</p>
+</li>
+<li>
+<p>
+OpenShift Knowledge Base<br>
+  <a href="https://redhat.com/openshift/community/kb">https://redhat.com/openshift/community/kb</a>
+</p>
+</li>
+<li>
+<p>
+Installing OpenShift Express client tools on Linux, Windows and Mac OSX<br>
+  <a href="https://redhat.com/openshift/community/kb/kb-e1000/installing-openshift-express-client-tools-on-non-rpm-based-systems">https://redhat.com/openshift/community/kb/kb-e1000/installing-openshift-express-client-tools-on-non-rpm-based-systems</a>
+</p>
+</li>
+<li>
+<p>
+Apps prepared for rapid deployment to OpenShift Express<br>
+  <a href="https://www.redhat.com/openshift/community/kb/kb-e1021-rundown-on-the-github-hosted-git-repositories-available-for-rapid-deployment">https://www.redhat.com/openshift/community/kb/kb-e1021-rundown-on-the-github-hosted-git-repositories-available-for-rapid-deployment</a>
+</p>
+</li>
+<li>
+<p>
+OpenShift resources for JBoss AS<br>
+  <a href="https://www.redhat.com/openshift/community/page/jboss-resources">https://www.redhat.com/openshift/community/page/jboss-resources</a>
+</p>
+</li>
+<li>
+<p>
+<a href="https://repository.jboss.org/nexus/index.html#nexus-search;gav~org.jboss.forge~forge-distribution~~~~kw,versionexpand">JBoss Forge download</a>
+</p>
+</li>
+<li>
+<p>
+JBoss Java EE quickstarts repository<br>
+  <a href="https://github.com/jbossas/quickstart">https://github.com/jbossas/quickstart</a>
+</p>
+</li>
+<li>
+<p>
+Deploy a Play! application on OpenShift Express (provided a lot of details for this workshop)<br>
+  <a href="https://github.com/opensas/play-demo/wiki/Step-12.5---deploy-to-openshift">https://github.com/opensas/play-demo/wiki/Step-12.5---deploy-to-openshift</a>
+</p>
+</li>
+<li>
+<p>
+How JBoss AS 7 was configured for OpenShift Express<br>
+  <a href="https://community.jboss.org/blogs/scott.stark/2011/08/10/jbossas7-configuration-in-openshift-express">https://community.jboss.org/blogs/scott.stark/2011/08/10/jbossas7-configuration-in-openshift-express</a>
+</p>
+</li>
+<li>
+<p>
+Comparison of OpenShift Express and Flex cartridges<br>
+  <a href="https://community.jboss.org/blogs/scott.stark/2011/08/10/openshift-expressflex-cartridge-comparision">https://community.jboss.org/blogs/scott.stark/2011/08/10/openshift-expressflex-cartridge-comparision</a>
+</p>
+</li>
+</ul></div>
+</div>
+</div>
+</div>
+<div id="footnotes"><hr></div>
+<div id="footer">
+<div id="footer-text">
+Version 1.1.0<br>
+Last updated 2012-03-01 15:48:10 EST
+</div>
+</div>
+</body>
+</html>
