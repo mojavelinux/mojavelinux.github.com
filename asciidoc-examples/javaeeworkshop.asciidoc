@@ -22,11 +22,9 @@ Here's the development stack we'll be using:
 
 Hang on, cause it's going to move _fast_.
 
-OpenShift Introduction
-----------------------
+== OpenShift Introduction
 
-Why Java EE on OpenShift?
-~~~~~~~~~~~~~~~~~~~~~~~~~
+=== Why Java EE on OpenShift?
 
 You've probably been hearing a lot about cloud (``to the cloud!''). But, if you're like me, you just haven't been that motivated to try it, or it just seemed like too much effort. After all, taking a Java EE application to the cloud typically meant:
 
@@ -41,8 +39,7 @@ _All that has changed_. I assure you, you're in for a pleasant surprise.
 
 It's time to get going!
 
-Creating an OpenShift account
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=== Creating an OpenShift account
 
 Creating an OpenShift account is very straightforward.
 
@@ -53,8 +50,7 @@ Creating an OpenShift account is very straightforward.
 
 Welcome to OpenShift!
 
-Installing Ruby-based OpenShift Express client tools
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=== Installing Ruby-based OpenShift Express client tools
 
 To interact with the OpenShift Express cloud, you'll need the OpenShift Express client tools.
 
@@ -81,8 +77,7 @@ TIP: On some distributions the gem installation directory is not automatically a
 
 For more information see {installingclienttools}[Installing OpenShift Express client tools on Linux, Windows and Mac OSX].
 
-Creating a domain for your applications
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=== Creating a domain for your applications
 
 Before actually deploying an app to OpenShift, you first need to create a domain. A domain hosts one or more applications. The name of the domain will be used in the URL of your apps according to the following scheme:
 
@@ -110,8 +105,7 @@ $> rhc-domain-info
 
 You can also go to the {openshiftdashboard}[dashboard] to see your newly minted domain. You now have your own, free cloud. Woot!
 
-Creating your first Java EE application on OpenShift Express
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=== Creating your first Java EE application on OpenShift Express
 
 We now want to create a new application that uses the JBoss AS 7 cartridge. This allows us to deploy Java EE compliant applications to OpenShift Express.
 
@@ -177,18 +171,15 @@ You'll also want to delete your local .git repository (unless you mean to save i
 
 But now's not the time to delete, it's time to create!
 
-JBoss Forge Introduction
-------------------------
+== JBoss Forge Introduction
 
-Why JBoss Forge?
-~~~~~~~~~~~~~~~~
+=== Why JBoss Forge?
 
 Because starting a project is hard. It doesn't just take time, it takes mental energy. We want to save that energy for creating useful things. Trust me, even if copying and pasting 20 lines of build XML seems easy, somewhere along the line your going to find yourself roasting your brain. Let's toss the complexity over the wall and let a tool like Forge deal with it.
 
 Forge is your monkey, or 10,000 of them.
 
-Setting up Forge
-~~~~~~~~~~~~~~~~
+=== Setting up Forge
 
 To create our application, we're going to use {jbossforge}[JBoss Forge]. Forge is a plugin-based framework for rapid development of standards-based Java applications.
 
@@ -227,8 +218,7 @@ NOTE: Any command in this document prefixed with `$forge>` is intended to be run
 
 Things look good. We're ready to create an application.
 
-Generating an application with Forge
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=== Generating an application with Forge
 
 Forge allows you to create a Java EE application from scratch. We're going to generate a point of sale application step-by-step in the Forge shell using the commands below (make sure Forge is running):
 
@@ -334,11 +324,9 @@ $forge> run generate.fsh
 
 That's more like it! Now, let's get the application running!
 
-Application Deployment
-----------------------
+== Application Deployment
 
-Deploying your first Java EE application to OpenShift Express
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=== Deploying your first Java EE application to OpenShift Express
 
 There are two ways to deploy an application to OpenShift Express:
 
@@ -398,8 +386,7 @@ $forge> git push openshift master
 
 You'll see the OpenShift begin the build lifecycle on the server, which includes executing Maven and downloading the (nearby) internet. The console output you're seeing is from the remote server being echoed into your local console.
 
-OpenShift Express Build Lifecycle
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=== OpenShift Express Build Lifecycle
 
 The OpenShift Express build lifecycle comprises four steps:
 
@@ -437,11 +424,9 @@ $forge> git push openshift master
 
 The OpenShift Expression build lifecycle will kick off again. Shortly after it completes, the change will be visible in the application.
 
-Application Management
-----------------------
+== Application Management
 
-Managing OpenShift Express applications from a shell environment
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=== Managing OpenShift Express applications from a shell environment
 
 OpenShift isn't just a black box (black cloud?), it's Linux and it's open! That means you can shell into your cloud just as you would any (decent) hosting environment.
 
@@ -462,8 +447,7 @@ $> ssh [UUID]@[application name]-[domain name].rhcloud.com
 
 There's a lot of power in that shell environment. You can type help to get a list of speciality commands (such as starting, stopping or restarting your app), or use just about any Linux shell command you know. Be sure to pay attention to what you're typing, though rest assured that the box is running on RHEL[Red Hat Enterprise Linux] secured with SELinux.
 
-Viewing the log files
-~~~~~~~~~~~~~~~~~~~~~
+=== Viewing the log files
 
 There are two ways to view (tail) the log files of your application. You can use the client tool:
 
@@ -477,8 +461,7 @@ $> tail_all
 
 You can also use the regular tail command in the remote shell environment.
 
-Restarting or stopping your application
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=== Restarting or stopping your application
 
 You can control your application directly without pushing files through git. One way is to use the client tool from your location machine:
 
@@ -492,11 +475,9 @@ $> ctl_app restart
 
 In addition to restart, you can use the commands start, stop, etc.
 
-Persistence Storage
--------------------
+== Persistence Storage
 
-Preserving the database between restarts
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=== Preserving the database between restarts
 
 You may have noticed that each time we restart the application, the data gets lost. There are two ways to resolve this:
 
@@ -517,8 +498,7 @@ The second feature depends on the database you are using. If you are using the p
 
 The other approach is just to use a regular client-server database (e.g., MySQL or PostgreSQL), which we'll do later.
 
-Persisting data to a MySQL database
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=== Persisting data to a MySQL database
 
 OpenShift Express provides us with several add-on services (cartridges) we can use. To see the list of available cartridges, issue the following command:
 
@@ -578,8 +558,7 @@ $> mysql -u $OPENSHIFT_DB_USERNAME -p$OPENSHIFT_DB_PASSWORD -h $OPENSHIFT_DB_HOS
 
 Now we'll configure our application to use OpenShift's MySQL database when running in the cloud.
 
-Switching the application datastore to MySQL
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=== Switching the application datastore to MySQL
 
 The JBoss AS 7 cartridge comes configured out of the box with datasources for H2 (embedded), MySQL and PostgreSQL. The datasources for MySQL and PostgreSQL are enabled automatically when the respective cartridges are added. You can find this configuration in '.openshift/config/standalone.xml'.
 
@@ -612,11 +591,9 @@ You can connect to the PostgreSQL prompt on the domain using this command:
 [source,console]
 $> psql -h $OPENSHIFT_DB_HOST -U $OPENSHIFT_DB_USERNAME -d $OPENSHIFT_APP_NAME
 
-Advanced Deployment
--------------------
+== Advanced Deployment
 
-Building with Jenkins
-~~~~~~~~~~~~~~~~~~~~~
+=== Building with Jenkins
 
 Jenkins is a continous integration (CI) server. When installed in an OpenShift Express environment, Jenkins takes over as the build manager for your application. You now have two options for how to build and deploy on OpenShift:
 
@@ -656,11 +633,9 @@ Now you simply have to do a git push to remote branch and Jenkins will take over
 
 The pre-Jenkins way of doing this was to fire off a command line build and dump the output to the screen. You'll notice that this output is replaced with a URL where you can view the output and status of the build.
 
-Integration Testing
--------------------
+== Integration Testing
 
-Writing real cloud tests with Arquillian
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=== Writing real cloud tests with Arquillian
 
 Bring your tests to the runtime instead of managing the runtime from your test. Isn't the cloud one of those runtimes? It sure is!
 
@@ -897,8 +872,7 @@ If you get a test failure, it may be because the type the endpoints are configur
 
 Run the tests again. With any luck, this time you'll be chanting ``Green bar!''
 
-Running the Arquillian tests on OpenShift Express
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=== Running the Arquillian tests on OpenShift Express
 
 Okay, now you can say it. "Let's take it to the cloud!" If they work there, they'll work anywhere :)
 
@@ -975,11 +949,9 @@ $> rhc-tail-files -a ike
 
 If you can't see the green bar, look above you :)
 
-Hosting Configuration
----------------------
+== Hosting Configuration
 
-Making your application a top-level domain
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=== Making your application a top-level domain
 
 Do we expect that you'll use *.rhcloud.com for all of your public websites? Of course not! That's where the alias feature comes in.
 
@@ -998,8 +970,7 @@ $$http://sellmore.com$$
 
 Congratulations! You're OpenShift-hosted.
 
-Summary
--------
+== Summary
 
 In this tutorial, we learned how to: 
 
@@ -1014,8 +985,7 @@ In this tutorial, we learned how to:
 * Configure MySQL and phpmyadmin cartridges in OpenShift Express
 * Configure our Java EE application to use the MySQL database running on the OpenShift Express domain
 
-Resources
----------
+== Resources
 
 * Git repository for this tutorial +
   http://tinyurl.com/dcjbug-jboss-workshop
