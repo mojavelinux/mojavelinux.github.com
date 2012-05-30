@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="generator" content="AsciiDoc 8.6.6">
+<meta name="generator" content="AsciiDoc 8.6.7">
 <title>JBoss Java EE 6 Workshop</title>
 <style type="text/css">
 /* Shared CSS for AsciiDoc xhtml11 and html5 backends */
@@ -602,66 +602,72 @@ div.exampleblock > div.content, div.sidebarblock > div.content, div.listingblock
 div.verseblock { border-left-width: 0; margin-left: 3em; }
 div.quoteblock { border-left-width: 3px; margin-left: 0; margin-right: 0;}
 div.admonitionblock td.content { border-left: 3px solid #E8E8E8; }
-.hll { background-color: #ffffcc }
-.c { color: #888888 } /* Comment */
-.err { color: #a61717; background-color: #e3d2d2 } /* Error */
-.k { color: #008800; font-weight: bold } /* Keyword */
-.cm { color: #888888 } /* Comment.Multiline */
-.cp { color: #cc0000; font-weight: bold } /* Comment.Preproc */
-.c1 { color: #888888 } /* Comment.Single */
-.cs { color: #cc0000; font-weight: bold; background-color: #fff0f0 } /* Comment.Special */
-.gd { color: #000000; background-color: #ffdddd } /* Generic.Deleted */
-.ge { font-style: italic } /* Generic.Emph */
-.gr { color: #aa0000 } /* Generic.Error */
-.gh { color: #303030 } /* Generic.Heading */
-.gi { color: #000000; background-color: #ddffdd } /* Generic.Inserted */
-.go { color: #888888 } /* Generic.Output */
-.gp { color: #555555 } /* Generic.Prompt */
-.gs { font-weight: bold } /* Generic.Strong */
-.gu { color: #606060 } /* Generic.Subheading */
-.gt { color: #aa0000 } /* Generic.Traceback */
-.kc { color: #008800; font-weight: bold } /* Keyword.Constant */
-.kd { color: #008800; font-weight: bold } /* Keyword.Declaration */
-.kn { color: #008800; font-weight: bold } /* Keyword.Namespace */
-.kp { color: #008800 } /* Keyword.Pseudo */
-.kr { color: #008800; font-weight: bold } /* Keyword.Reserved */
-.kt { color: #888888; font-weight: bold } /* Keyword.Type */
-.m { color: #0000DD; font-weight: bold } /* Literal.Number */
-.s { color: #dd2200; } /* Literal.String */
-.na { color: #336699 } /* Name.Attribute */
-.nb { color: #003388 } /* Name.Builtin */
-.nc { color: #bb0066; font-weight: bold } /* Name.Class */
-.no { color: #003366; font-weight: bold } /* Name.Constant */
-.nd { color: #555555 } /* Name.Decorator */
-.ne { color: #bb0066; font-weight: bold } /* Name.Exception */
-.nf { color: #0066bb; font-weight: bold } /* Name.Function */
-.nl { color: #336699; font-style: italic } /* Name.Label */
-.nn { color: #bb0066; font-weight: bold } /* Name.Namespace */
-.py { color: #336699; font-weight: bold } /* Name.Property */
-.nt { color: #bb0066; font-weight: bold } /* Name.Tag */
-.nv { color: #336699 } /* Name.Variable */
-.ow { color: #008800 } /* Operator.Word */
-.w { color: #bbbbbb } /* Text.Whitespace */
-.mf { color: #0000DD; font-weight: bold } /* Literal.Number.Float */
-.mh { color: #0000DD; font-weight: bold } /* Literal.Number.Hex */
-.mi { color: #0000DD; font-weight: bold } /* Literal.Number.Integer */
-.mo { color: #0000DD; font-weight: bold } /* Literal.Number.Oct */
-.sb { color: #dd2200; } /* Literal.String.Backtick */
-.sc { color: #dd2200; } /* Literal.String.Char */
-.sd { color: #dd2200; } /* Literal.String.Doc */
-.s2 { color: #dd2200; } /* Literal.String.Double */
-.se { color: #0044dd; } /* Literal.String.Escape */
-.sh { color: #dd2200; } /* Literal.String.Heredoc */
-.si { color: #3333bb; } /* Literal.String.Interpol */
-.sx { color: #22bb22; } /* Literal.String.Other */
-.sr { color: #008800; } /* Literal.String.Regex */
-.s1 { color: #dd2200; } /* Literal.String.Single */
-.ss { color: #aa6600; } /* Literal.String.Symbol */
-.bp { color: #003388 } /* Name.Builtin.Pseudo */
-.vc { color: #336699 } /* Name.Variable.Class */
-.vg { color: #dd7700 } /* Name.Variable.Global */
-.vi { color: #3333bb } /* Name.Variable.Instance */
-.il { color: #0000DD; font-weight: bold } /* Literal.Number.Integer.Long */
+/*
+  pygmentize filter
+*/
+.highlight .hll { background-color: #ffffcc }
+.highlight  { background: #f4f4f4; }
+.highlight .c { color: #008800; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #AA22FF; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #008800; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #008800 } /* Comment.Preproc */
+.highlight .c1 { color: #008800; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #008800; font-weight: bold } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #AA22FF; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #AA22FF; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #AA22FF; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #AA22FF } /* Keyword.Pseudo */
+.highlight .kr { color: #AA22FF; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #00BB00; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #666666 } /* Literal.Number */
+.highlight .s { color: #BB4444 } /* Literal.String */
+.highlight .na { color: #BB4444 } /* Name.Attribute */
+.highlight .nb { color: #AA22FF } /* Name.Builtin */
+.highlight .nc { color: #0000FF } /* Name.Class */
+.highlight .no { color: #880000 } /* Name.Constant */
+.highlight .nd { color: #AA22FF } /* Name.Decorator */
+.highlight .ni { color: #999999; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #00A000 } /* Name.Function */
+.highlight .nl { color: #A0A000 } /* Name.Label */
+.highlight .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #B8860B } /* Name.Variable */
+.highlight .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #666666 } /* Literal.Number.Float */
+.highlight .mh { color: #666666 } /* Literal.Number.Hex */
+.highlight .mi { color: #666666 } /* Literal.Number.Integer */
+.highlight .mo { color: #666666 } /* Literal.Number.Oct */
+.highlight .sb { color: #BB4444 } /* Literal.String.Backtick */
+.highlight .sc { color: #BB4444 } /* Literal.String.Char */
+.highlight .sd { color: #BB4444; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #BB4444 } /* Literal.String.Double */
+.highlight .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #BB4444 } /* Literal.String.Heredoc */
+.highlight .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.highlight .sx { color: #008000 } /* Literal.String.Other */
+.highlight .sr { color: #BB6688 } /* Literal.String.Regex */
+.highlight .s1 { color: #BB4444 } /* Literal.String.Single */
+.highlight .ss { color: #B8860B } /* Literal.String.Symbol */
+.highlight .bp { color: #AA22FF } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #B8860B } /* Name.Variable.Class */
+.highlight .vg { color: #B8860B } /* Name.Variable.Global */
+.highlight .vi { color: #B8860B } /* Name.Variable.Instance */
+.highlight .il { color: #666666 } /* Literal.Number.Integer.Long */
+
 @media screen {
   body {
     max-width: 50em; /* approximately 80 characters wide */
@@ -740,7 +746,7 @@ toc: function (toclevels) {
 
   function tocEntries(el, toclevels) {
     var result = new Array;
-    var re = new RegExp('[hH]([2-'+(toclevels+1)+'])');
+    var re = new RegExp('[hH]([1-'+(toclevels+1)+'])');
     // Function that scans the DOM tree for header elements (the DOM2
     // nodeIterator API would be a better technique but not supported by all
     // browsers).
@@ -769,7 +775,7 @@ toc: function (toclevels) {
   var i;
   for (i = 0; i < toc.childNodes.length; i++) {
     var entry = toc.childNodes[i];
-    if (entry.nodeName == 'div'
+    if (entry.nodeName.toLowerCase() == 'div'
      && entry.getAttribute("class")
      && entry.getAttribute("class").match(/^toclevel/))
       tocEntriesToRemove.push(entry);
@@ -815,7 +821,7 @@ footnotes: function () {
   var entriesToRemove = [];
   for (i = 0; i < noteholder.childNodes.length; i++) {
     var entry = noteholder.childNodes[i];
-    if (entry.nodeName == 'div' && entry.getAttribute("class") == "footnote")
+    if (entry.nodeName.toLowerCase() == 'div' && entry.getAttribute("class") == "footnote")
       entriesToRemove.push(entry);
   }
   for (i = 0; i < entriesToRemove.length; i++) {
@@ -912,7 +918,7 @@ asciidoc.install(2);
 <div class="ulist"><ul>
 <li>
 <p>
-OpenShift Express
+OpenShift
 </p>
 </li>
 <li>
@@ -973,7 +979,7 @@ Lack of crystal clear documentation and examples
 </li>
 </ul></div>
 <div class="paragraph"><p><em>All that has changed</em>. I assure you, you&#8217;re in for a pleasant surprise.</p></div>
-<div class="paragraph"><p><a href="http://openshift.redhat.com/app/express">OpenShift Express</a> provides a free, cloud-based application platform for Java, Perl, PHP, Python, and Ruby applications using a shared-hosting model. Exploring the cloud has never been simpler. You can deploy a Java EE compliant application without requiring any hacks or workarounds. Best of all, take as much time as you like, because it&#8217;s all <em>free</em>. (Oh, and you can show off your applications to your friends, or even run applications for your own purposes).</p></div>
+<div class="paragraph"><p><a href="http://openshift.com">OpenShift</a> provides a free, cloud-based application platform for Java, Perl, PHP, Python, and Ruby applications using a shared-hosting model. Exploring the cloud has never been simpler. You can deploy a Java EE compliant application without requiring any hacks or workarounds. Best of all, take as much time as you like, because it&#8217;s all <em>free</em>. (Oh, and you can show off your applications to your friends, or even run applications for your own purposes).</p></div>
 <div class="paragraph"><p>It&#8217;s time to get going!</p></div>
 </div>
 <div class="sect2">
@@ -1004,9 +1010,9 @@ Check your email and follow instructions in the welcome email
 <div class="paragraph"><p>Welcome to OpenShift!</p></div>
 </div>
 <div class="sect2">
-<h3 id="_installing_ruby_based_openshift_express_client_tools">Installing Ruby-based OpenShift Express client tools</h3>
-<div class="paragraph"><p>To interact with the OpenShift Express cloud, you&#8217;ll need the OpenShift Express client tools.</p></div>
-<div class="paragraph"><p>To install the OpenShift client tools, you&#8217;ll first need to install git and Ruby Gems.</p></div>
+<h3 id="_installing_ruby_based_openshift_client_tools">Installing Ruby-based OpenShift client tools</h3>
+<div class="paragraph"><p>To interact with the OpenShift Platform-as-a-Service (PaaS), you&#8217;ll need one of the available OpenShift client tools installed. We&#8217;ll be using the Ruby-based commandline tool, rhc, in this tutorial.</p></div>
+<div class="paragraph"><p>To install the Ruby-based OpenShift client tools, you first need to install git and Ruby Gems.</p></div>
 <div class="paragraph"><p>On a Debian-based Linux distribution, it&#8217;s as easy as:</p></div>
 <div class="listingblock">
 <div class="content"><div class="highlight"><pre><span class="gp">$</span>&gt; sudo apt-get install ruby rubygems
@@ -1076,7 +1082,7 @@ qTCT16/0nPgLA/i6xjf+Xw3+B2ll/uiqTaJTAAAAAElFTkSuQmCC">
 <td class="content">On some distributions the gem installation directory is not automatically added to the path. Find the location of your gems with gem environment and add it to you system&#8217;s PATH environment variable.</td>
 </tr></table>
 </div>
-<div class="paragraph"><p>For more information see <a href="https://redhat.com/openshift/community/kb/kb-e1000/installing-openshift-express-client-tools-on-non-rpm-based-systems">Installing OpenShift Express client tools on Linux, Windows and Mac OSX</a>.</p></div>
+<div class="paragraph"><p>For more information see <a href="https://redhat.com/openshift/community/kb/kb-e1000/installing-openshift-express-client-tools-on-non-rpm-based-systems">Installing OpenShift client tools on Linux, Windows and Mac OSX</a>.</p></div>
 </div>
 <div class="sect2">
 <h3 id="_creating_a_domain_for_your_applications">Creating a domain for your applications</h3>
@@ -1194,7 +1200,7 @@ Pvx+P8FgkGAw+OWfD7gj94RG13U0TSOdTpNOp8lMbmQ0TcvbArrrK1mW8Xg8eL3e7BLB5/N9dSc0
 uSP3jMwwjKy4G3AXwB0ugAsx5YzMndW//DOy3OFMjGwrxrKs7NX9LBfAneFFUcxec6rU5zqpvCqA
 qTCT16/0nPgLA/i6xjf+Xw3+B2ll/uiqTaJTAAAAAElFTkSuQmCC">
 </td>
-<td class="content">All OpenShift Express client tools prompt you for your OpenShift password (unless you supply it using the -p command flag)</td>
+<td class="content">All OpenShift client tools prompt you for your OpenShift password (unless you supply it using the -p command flag)</td>
 </tr></table>
 </div>
 <div class="paragraph"><p>The command will then create a pair of private and public keys as <em>libra_id_rsa</em> and <em>libra_id_rsa.pub</em> in your <em>$HOME/.ssh/</em> directory. It will ask you for a password to access the private key. <strong>Don&#8217;t forget it!</strong></p></div>
@@ -1258,13 +1264,13 @@ qTCT16/0nPgLA/i6xjf+Xw3+B2ll/uiqTaJTAAAAAElFTkSuQmCC">
 <div class="listingblock">
 <div class="content"><div class="highlight"><pre><span class="gp">$</span>&gt; rhc-domain-info
 </pre></div></div></div>
-<div class="paragraph"><p>You can also go to the <a href="https://openshift.redhat.com/app/dashboard">dashboard</a> to see your newly minted domain. You now have your own, free cloud. Woot!</p></div>
+<div class="paragraph"><p>You can also go to the <a href="https://openshift.redhat.com/app/console/applications">dashboard</a> to see your newly minted domain. You now have your own, free cloud. Woot!</p></div>
 </div>
 <div class="sect2">
-<h3 id="_creating_your_first_java_ee_application_on_openshift_express">Creating your first Java EE application on OpenShift Express</h3>
-<div class="paragraph"><p>We now want to create a new application that uses the JBoss AS 7 cartridge. This allows us to deploy Java EE compliant applications to OpenShift Express.</p></div>
+<h3 id="_creating_your_first_java_ee_application_on_openshift">Creating your first Java EE application on OpenShift</h3>
+<div class="paragraph"><p>We now want to create a new application that uses the JBoss AS 7 cartridge. This allows us to deploy Java EE-compliant applications to OpenShift.</p></div>
 <div class="paragraph"><p>We&#8217;ll assume you&#8217;ll be developing the application in the following folder: <em>~/demos/apps/sellmore</em></p></div>
-<div class="paragraph"><p>Next, use the following command to create a slot in your OpenShift Express domain in which to run the application and the location where the local project should be created:</p></div>
+<div class="paragraph"><p>Next, use the following command to create a slot in your OpenShift domain in which to run the application and the location where the local project should be created:</p></div>
 <div class="listingblock">
 <div class="content"><div class="highlight"><pre><span class="gp">$</span>&gt; rhc-create-app -a sellmore -t jbossas-7.0 -r ~/demos/apps/sellmore
 </pre></div></div></div>
@@ -1282,7 +1288,7 @@ qTCT16/0nPgLA/i6xjf+Xw3+B2ll/uiqTaJTAAAAAElFTkSuQmCC">
 |- pom.xml
 `- README</pre>
 </div></div>
-<div class="paragraph"><p>The <em>README</em> describes all the special directories that pertain to OpenShift Express.</p></div>
+<div class="paragraph"><p>The <em>README</em> describes all the special directories that pertain to OpenShift.</p></div>
 <div class="paragraph"><p>The OpenShift setup leaves behind a sample application which is going to get in our way later on. So first, let&#8217;s clear the path:</p></div>
 <div class="listingblock">
 <div class="content"><div class="highlight"><pre><span class="gp">$</span>&gt; <span class="nb">cd </span>sellmore
@@ -1301,7 +1307,7 @@ qTCT16/0nPgLA/i6xjf+Xw3+B2ll/uiqTaJTAAAAAElFTkSuQmCC">
 <div class="listingblock">
 <div class="content"><div class="highlight"><pre><span class="gp">$</span>&gt; rhc-domain-info
 </pre></div></div></div>
-<div class="paragraph"><p>You can also go to the <a href="https://openshift.redhat.com/app/dashboard">dashboard</a> to see your application slot. If you click on the URL, you&#8217;ll see that a sample application is already running in the cloud. We&#8217;ll be replacing that soon enough.</p></div>
+<div class="paragraph"><p>You can also go to the <a href="https://openshift.redhat.com/app/console/applications">dashboard</a> to see your application slot. If you click on the URL, you&#8217;ll see that a sample application is already running in the cloud. We&#8217;ll be replacing that soon enough.</p></div>
 <div class="paragraph"><p>If, for whatever reason, you need to delete your application, use this command:</p></div>
 <div class="listingblock">
 <div class="content"><div class="highlight"><pre><span class="gp">$</span>&gt; rhc-ctl-app -a sellmore -c destroy
@@ -1727,8 +1733,8 @@ Reenables interactive commands
 <h2 id="_application_deployment">Application Deployment</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_deploying_your_first_java_ee_application_to_openshift_express">Deploying your first Java EE application to OpenShift Express</h3>
-<div class="paragraph"><p>There are two ways to deploy an application to OpenShift Express:</p></div>
+<h3 id="_deploying_your_first_java_ee_application_to_openshift">Deploying your first Java EE application to OpenShift</h3>
+<div class="paragraph"><p>There are two ways to deploy an application to OpenShift:</p></div>
 <div class="olist arabic"><ol class="arabic">
 <li>
 <p>
@@ -1829,7 +1835,7 @@ TpxOJy6Xy7qWZdk6wZzrxCbvCY1JRNd1NE3LAWgSM69ngp+PgCiK1gF3NhFTzHvmO+Y3wCzw8xLI
 JpL5tYCZpEyw2f/nWt1ag2UtM0x3Mq1iAp1j+bH0M7KFCGWDnfmbd8AMnuxfUzL/C0rp/wFnFd4n
 EQn3XQAAAABJRU5ErkJggg==">
 </td>
-<td class="content">If you forget this profile, then the application will build on OpenShift Express, but it will not be deployed to JBoss AS 7.</td>
+<td class="content">If you forget this profile, then the application will build on the OpenShift PaaS, but it will not be deployed to JBoss AS 7.</td>
 </tr></table>
 </div>
 <div class="admonitionblock">
@@ -1897,8 +1903,8 @@ GNQfHLG+TyMTkAVEr88xQfVnkBg7GAKixSIykDYQsL21/wFkW/B5QqT9lwAAAABJRU5ErkJggg==">
 <div class="paragraph"><p>You&#8217;ll see the OpenShift begin the build lifecycle on the server, which includes executing Maven and downloading the (nearby) internet. The console output you&#8217;re seeing is from the remote server being echoed into your local console.</p></div>
 </div>
 <div class="sect2">
-<h3 id="_openshift_express_build_lifecycle">OpenShift Express Build Lifecycle</h3>
-<div class="paragraph"><p>The OpenShift Express build lifecycle comprises four steps:</p></div>
+<h3 id="_openshift_build_lifecycle">OpenShift Build Lifecycle</h3>
+<div class="paragraph"><p>The OpenShift build lifecycle comprises four steps:</p></div>
 <div class="olist arabic"><ol class="arabic">
 <li>
 <p>
@@ -1936,7 +1942,7 @@ GNQfHLG+TyMTkAVEr88xQfVnkBg7GAKixSIykDYQsL21/wFkW/B5QqT9lwAAAABJRU5ErkJggg==">
 <div class="content"><div class="highlight"><pre><span class="gp">$</span>forge&gt; git commit -a -m <span class="s1">&#39;first change&#39;</span>
 <span class="gp">$</span>forge&gt; git push openshift master
 </pre></div></div></div>
-<div class="paragraph"><p>The OpenShift Expression build lifecycle will kick off again. Shortly after it completes, the change will be visible in the application.</p></div>
+<div class="paragraph"><p>The OpenShift build lifecycle will kick off again. Shortly after it completes, the change will be visible in the application.</p></div>
 </div>
 </div>
 </div>
@@ -1944,7 +1950,7 @@ GNQfHLG+TyMTkAVEr88xQfVnkBg7GAKixSIykDYQsL21/wFkW/B5QqT9lwAAAABJRU5ErkJggg==">
 <h2 id="_application_management">Application Management</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_managing_openshift_express_applications_from_a_shell_environment">Managing OpenShift Express applications from a shell environment</h3>
+<h3 id="_managing_openshift_applications_from_a_shell_environment">Managing OpenShift applications from a shell environment</h3>
 <div class="paragraph"><p>OpenShift isn&#8217;t just a black box (black cloud?), it&#8217;s Linux and it&#8217;s open! That means you can shell into your cloud just as you would any (decent) hosting environment.</p></div>
 <div class="paragraph"><p>So what&#8217;s the login? It&#8217;s embedded there in the git repository URL. Let&#8217;s find it.</p></div>
 <div class="listingblock">
@@ -2009,7 +2015,7 @@ Save the data to a safe location on disk
 <div class="title">src/main/resources/META-INF/persistence.xml (fragment)</div>
 <div class="content"><div class="highlight"><pre><span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;hibernate.hbm2ddl.auto&quot;</span> <span class="na">value=</span><span class="s">&quot;update&quot;</span><span class="nt">/&gt;</span>
 </pre></div></div></div>
-<div class="paragraph"><p>The second feature depends on the database you are using. If you are using the provided H2 database, you&#8217;ll likely want to change the configuration in <em>.openshift/config/standalone.xml</em> to use the OpenShift Express data directory:</p></div>
+<div class="paragraph"><p>The second feature depends on the database you are using. If you are using the provided H2 database, you&#8217;ll likely want to change the configuration in <em>.openshift/config/standalone.xml</em> to use the OpenShift data directory:</p></div>
 <div class="listingblock">
 <div class="title">.openshift/config/standalone.xml (fragment)</div>
 <div class="content"><div class="highlight"><pre><span class="nt">&lt;connection-url&gt;</span>jdbc:h2:${OPENSHIFT_DATA_DIR}/test;DB_CLOSE_DELAY=-1<span class="nt">&lt;/connection-url&gt;</span>
@@ -2018,7 +2024,7 @@ Save the data to a safe location on disk
 </div>
 <div class="sect2">
 <h3 id="_persisting_data_to_a_mysql_database">Persisting data to a MySQL database</h3>
-<div class="paragraph"><p>OpenShift Express provides us with several add-on services (cartridges) we can use. To see the list of available cartridges, issue the following command:</p></div>
+<div class="paragraph"><p>OpenShift provides us with several add-on services (cartridges) we can use. To see the list of available cartridges, issue the following command:</p></div>
 <div class="listingblock">
 <div class="content"><div class="highlight"><pre><span class="gp">$</span>&gt; rhc-ctl-app -a sellmore -L
 
@@ -2094,7 +2100,7 @@ PAr9L8j/96+U/w3yCoCXW14B8HLLvwDd67nwZIEPdgAAAABJRU5ErkJggg==">
 <td class="content">The name of the database is the same as the name of the application.</td>
 </tr></table>
 </div>
-<div class="paragraph"><p>OpenShift Express is telling us that phpmyadmin cartridge is also available, so we&#8217;ll add it as well.</p></div>
+<div class="paragraph"><p>OpenShift is telling us that the phpmyadmin cartridge is also available, so we&#8217;ll add it as well.</p></div>
 <div class="listingblock">
 <div class="content"><div class="highlight"><pre><span class="gp">$</span>&gt; rhc-ctl-app -a sellmore -e add-phpmyadmin-3.4
 
@@ -2203,7 +2209,7 @@ GNQfHLG+TyMTkAVEr88xQfVnkBg7GAKixSIykDYQsL21/wFkW/B5QqT9lwAAAABJRU5ErkJggg==">
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_building_with_jenkins">Building with Jenkins</h3>
-<div class="paragraph"><p>Jenkins is a continous integration (CI) server. When installed in an OpenShift Express environment, Jenkins takes over as the build manager for your application. You now have two options for how to build and deploy on OpenShift:</p></div>
+<div class="paragraph"><p>Jenkins is a continous integration (CI) server. When installed in an OpenShift environment, Jenkins takes over as the build manager for your application. You now have two options for how to build and deploy on OpenShift:</p></div>
 <div class="dlist"><dl>
 <dt class="hdlist1">
 Building without Jenkins
@@ -2275,7 +2281,7 @@ A large community of Jenkins plugins (300+)
 <div class="sect2">
 <h3 id="_writing_real_cloud_tests_with_arquillian">Writing real cloud tests with Arquillian</h3>
 <div class="paragraph"><p>Bring your tests to the runtime instead of managing the runtime from your test. Isn&#8217;t the cloud one of those runtimes? It sure is!</p></div>
-<div class="paragraph"><p>Let&#8217;s use Arquillian to write some tests that run on a local JBoss AS instance. Later, we&#8217;ll get them running on OpenShift Express.</p></div>
+<div class="paragraph"><p>Let&#8217;s use Arquillian to write some tests that run on a local JBoss AS instance. Later, we&#8217;ll get them running on OpenShift.</p></div>
 <div class="paragraph"><p>Setting up Arquillian requires thought. Let&#8217;s put those 10,000 monkeys to work again. Open up Forge and see if it can find a plugin to help us get started with Arquillian.</p></div>
 <div class="listingblock">
 <div class="content"><div class="highlight"><pre><span class="gp">$</span>forge&gt; forge find-plugin arquillian
@@ -2510,7 +2516,7 @@ PAr9L8j/96+U/w3yCoCXW14B8HLLvwDd67nwZIEPdgAAAABJRU5ErkJggg==">
 <div class="paragraph"><p>Run the tests again. With any luck, this time you&#8217;ll be chanting &#8220;Green bar!&#8221;</p></div>
 </div>
 <div class="sect2">
-<h3 id="_running_the_arquillian_tests_on_openshift_express">Running the Arquillian tests on OpenShift Express</h3>
+<h3 id="_running_the_arquillian_tests_on_openshift">Running the Arquillian tests on OpenShift</h3>
 <div class="paragraph"><p>Okay, now you can say it. "Let&#8217;s take it to the cloud!" If they work there, they&#8217;ll work anywhere :)</p></div>
 <div class="paragraph"><p>It&#8217;s up to you whether you want to run the tests on the same OpenShift application as the production application or whether you want to create a dedicated application. We&#8217;ll assume you&#8217;re going to create a dedicated application. Let&#8217;s call it ike.</p></div>
 <div class="listingblock">
@@ -2520,7 +2526,7 @@ PAr9L8j/96+U/w3yCoCXW14B8HLLvwDd67nwZIEPdgAAAABJRU5ErkJggg==">
 <div class="listingblock">
 <div class="title">pom.xml (fragment)</div>
 <div class="content"><div class="highlight"><pre><span class="nt">&lt;profile&gt;</span>
-  <span class="nt">&lt;id&gt;</span>OPENSHIFT_EXPRESS_1.X<span class="nt">&lt;/id&gt;</span>
+  <span class="nt">&lt;id&gt;</span>OPENSHIFT_1.X<span class="nt">&lt;/id&gt;</span>
   <span class="nt">&lt;dependencies&gt;</span>
     <span class="nt">&lt;dependency&gt;</span>
       <span class="nt">&lt;groupId&gt;</span>org.jboss.arquillian.container<span class="nt">&lt;/groupId&gt;</span>
@@ -2531,7 +2537,7 @@ PAr9L8j/96+U/w3yCoCXW14B8HLLvwDd67nwZIEPdgAAAABJRU5ErkJggg==">
   <span class="nt">&lt;/dependencies&gt;</span>
 <span class="nt">&lt;/profile&gt;</span>
 </pre></div></div></div>
-<div class="paragraph"><p>The Arquillian OpenShift Express adapter also uses git push to deploy the test archive. In order for that to work, it needs to know where it&#8217;s pushing. In other words, it needs a little configuration.</p></div>
+<div class="paragraph"><p>The Arquillian OpenShift adapter also uses git push to deploy the test archive. In order for that to work, it needs to know where it&#8217;s pushing. In other words, it needs a little configuration.</p></div>
 <div class="paragraph"><p>Seed an arquillian.xml descriptor using a known container (in this case, JBoss AS 7 remote):</p></div>
 <div class="listingblock">
 <div class="content"><div class="highlight"><pre><span class="gp">$</span>forge&gt; arquillian configure-container --profile JBOSS_AS_REMOTE_7.X
@@ -2539,7 +2545,7 @@ PAr9L8j/96+U/w3yCoCXW14B8HLLvwDd67nwZIEPdgAAAABJRU5ErkJggg==">
 <div class="paragraph"><p>Next, replace the container element with the following XML:</p></div>
 <div class="listingblock">
 <div class="title">src/test/resources/arquillian.xml (fragment)</div>
-<div class="content"><div class="highlight"><pre><span class="nt">&lt;container</span> <span class="na">qualifier=</span><span class="s">&quot;OPENSHIFT_EXPRESS_1.X&quot;</span><span class="nt">&gt;</span>
+<div class="content"><div class="highlight"><pre><span class="nt">&lt;container</span> <span class="na">qualifier=</span><span class="s">&quot;OPENSHIFT_1.X&quot;</span><span class="nt">&gt;</span>
   <span class="nt">&lt;configuration&gt;</span>
     <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;namespace&quot;</span><span class="nt">&gt;</span>mojavelinux<span class="nt">&lt;/property&gt;</span>
     <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;application&quot;</span><span class="nt">&gt;</span>ike<span class="nt">&lt;/property&gt;</span>
@@ -2556,11 +2562,11 @@ PAr9L8j/96+U/w3yCoCXW14B8HLLvwDd67nwZIEPdgAAAABJRU5ErkJggg==">
 </pre></div></div></div>
 <div class="paragraph"><p>To activate this container configuration, write the name of the qualifier to the <em>arquillian.launch</em> file (alternatively, you can select the configuration using the <span class="monospaced">-Darquillian.launch</span> flag when you run Maven):</p></div>
 <div class="listingblock">
-<div class="content"><div class="highlight"><pre><span class="gp">$</span>&gt; <span class="nb">echo</span> <span class="s2">&quot;OPENSHIFT_EXPRESS_1.X&quot;</span> &gt; src/test/resources/arquillian.launch
+<div class="content"><div class="highlight"><pre><span class="gp">$</span>&gt; <span class="nb">echo</span> <span class="s2">&quot;OPENSHIFT_1.X&quot;</span> &gt; src/test/resources/arquillian.launch
 </pre></div></div></div>
 <div class="paragraph"><p>Are you ready to see some tests run in the cloud?</p></div>
 <div class="listingblock">
-<div class="content"><div class="highlight"><pre><span class="gp">$</span>forge&gt; <span class="nb">test</span> --profile OPENSHIFT_EXPRESS_1.X
+<div class="content"><div class="highlight"><pre><span class="gp">$</span>forge&gt; <span class="nb">test</span> --profile OPENSHIFT_1.X
 </pre></div></div></div>
 <div class="paragraph"><p>You may want to tail the log files in another terminal to moniter the progress:</p></div>
 <div class="listingblock">
@@ -2576,11 +2582,11 @@ PAr9L8j/96+U/w3yCoCXW14B8HLLvwDd67nwZIEPdgAAAABJRU5ErkJggg==">
 <div class="sect2">
 <h3 id="_making_your_application_a_top_level_domain">Making your application a top-level domain</h3>
 <div class="paragraph"><p>Do we expect that you&#8217;ll use *.rhcloud.com for all of your public websites? Of course not! That&#8217;s where the alias feature comes in.</p></div>
-<div class="paragraph"><p>You can create a domain alias for any OpenShift Express application using this command:</p></div>
+<div class="paragraph"><p>You can create a domain alias for any OpenShift application using this command:</p></div>
 <div class="listingblock">
 <div class="content"><div class="highlight"><pre><span class="gp">$</span>&gt; rhc-ctl-app -a sellmore -c add-alias --alias sellmore.com
 </pre></div></div></div>
-<div class="paragraph"><p>Next, you point the DNS for your domain name to the IP address of your OpenShift Express server (or you can cheat by putting it in <em>/etc/hosts</em>).</p></div>
+<div class="paragraph"><p>Next, you point the DNS for your domain name to the IP address of your OpenShift server (or you can cheat by putting it in <em>/etc/hosts</em>).</p></div>
 <div class="paragraph"><p>Now you can access the application from the following URL:</p></div>
 <div class="exampleblock">
 <div class="content">
@@ -2602,17 +2608,17 @@ Register an account at OpenShift
 </li>
 <li>
 <p>
-Install the Ruby-based OpenShift Express client tools
+Install the Ruby-based OpenShift client tools
 </p>
 </li>
 <li>
 <p>
-Create our own OpenShift Express domain
+Create our own OpenShift domain
 </p>
 </li>
 <li>
 <p>
-Create an OpenShift Express application using the JBoss AS 7 cartridge on that domain
+Create an OpenShift application using the JBoss AS 7 cartridge on that domain
 </p>
 </li>
 <li>
@@ -2622,7 +2628,7 @@ Add a remote OpenShift git repo to our own repo to deploy an existing app
 </li>
 <li>
 <p>
-Deploy a Java EE application to OpenShift Express
+Deploy a Java EE application to OpenShift
 </p>
 </li>
 <li>
@@ -2637,12 +2643,12 @@ Configure H2 to persist the database file to the application&#8217;s data direct
 </li>
 <li>
 <p>
-Configure MySQL and phpmyadmin cartridges in OpenShift Express
+Configure MySQL and phpmyadmin cartridges in OpenShift
 </p>
 </li>
 <li>
 <p>
-Configure our Java EE application to use the MySQL database running on the OpenShift Express domain
+Configure our Java EE application to use the MySQL database running on the OpenShift domain
 </p>
 </li>
 </ul></div>
@@ -2667,13 +2673,13 @@ OpenShift homepage<br>
 <li>
 <p>
 OpenShift dashboard<br>
-  <a href="https://openshift.redhat.com/app/dashboard">https://openshift.redhat.com/app/dashboard</a>
+  <a href="https://openshift.redhat.com/app/console/applications">https://openshift.redhat.com/app/console/applications</a>
 </p>
 </li>
 <li>
 <p>
-OpenShift Express Documentation<br>
-  <a href="http://docs.redhat.com/docs/en-US/OpenShift_Express/2.0/html/User_Guide">http://docs.redhat.com/docs/en-US/OpenShift_Express/2.0/html/User_Guide</a>
+OpenShift Documentation<br>
+  <a href="http://docs.redhat.com/docs/en-US/OpenShift/2.0/html/User_Guide/index.html">http://docs.redhat.com/docs/en-US/OpenShift/2.0/html/User_Guide/index.html</a>
 </p>
 </li>
 <li>
@@ -2684,13 +2690,13 @@ OpenShift Knowledge Base<br>
 </li>
 <li>
 <p>
-Installing OpenShift Express client tools on Linux, Windows and Mac OSX<br>
+Installing OpenShift client tools on Linux, Windows and Mac OSX<br>
   <a href="https://redhat.com/openshift/community/kb/kb-e1000/installing-openshift-express-client-tools-on-non-rpm-based-systems">https://redhat.com/openshift/community/kb/kb-e1000/installing-openshift-express-client-tools-on-non-rpm-based-systems</a>
 </p>
 </li>
 <li>
 <p>
-Apps prepared for rapid deployment to OpenShift Express<br>
+Apps prepared for rapid deployment to OpenShift<br>
   <a href="https://www.redhat.com/openshift/community/kb/kb-e1021-rundown-on-the-github-hosted-git-repositories-available-for-rapid-deployment">https://www.redhat.com/openshift/community/kb/kb-e1021-rundown-on-the-github-hosted-git-repositories-available-for-rapid-deployment</a>
 </p>
 </li>
@@ -2713,20 +2719,14 @@ JBoss Java EE quickstarts repository<br>
 </li>
 <li>
 <p>
-Deploy a Play! application on OpenShift Express (provided a lot of details for this workshop)<br>
+Deploy a Play! application on OpenShift (provided a lot of details for this workshop)<br>
   <a href="https://github.com/opensas/play-demo/wiki/Step-12.5---deploy-to-openshift">https://github.com/opensas/play-demo/wiki/Step-12.5---deploy-to-openshift</a>
 </p>
 </li>
 <li>
 <p>
-How JBoss AS 7 was configured for OpenShift Express<br>
+How JBoss AS 7 was configured for OpenShift<br>
   <a href="https://community.jboss.org/blogs/scott.stark/2011/08/10/jbossas7-configuration-in-openshift-express">https://community.jboss.org/blogs/scott.stark/2011/08/10/jbossas7-configuration-in-openshift-express</a>
-</p>
-</li>
-<li>
-<p>
-Comparison of OpenShift Express and Flex cartridges<br>
-  <a href="https://community.jboss.org/blogs/scott.stark/2011/08/10/openshift-expressflex-cartridge-comparision">https://community.jboss.org/blogs/scott.stark/2011/08/10/openshift-expressflex-cartridge-comparision</a>
 </p>
 </li>
 </ul></div>
@@ -2737,7 +2737,7 @@ Comparison of OpenShift Express and Flex cartridges<br>
 <div id="footer">
 <div id="footer-text">
 Version 1.1.0<br>
-Last updated 2012-03-01 15:48:10 EST
+Last updated 2012-05-30 02:15:20 EDT
 </div>
 </div>
 </body>
