@@ -6,18 +6,18 @@
 <book lang="en">
 <bookinfo>
     <title>JBoss Java EE 6 Workshop</title>
-    <date>Feb 29, 2012</date>
+    <date>May 30, 2012</date>
     <author>
         <firstname>Dan</firstname>
         <surname>Allen</surname>
         <email>dan.j.allen@gmail.com</email>
     </author>
-    <authorinitials>DA</authorinitials>
-<revhistory><revision><revnumber>1.1.0</revnumber><date>Feb 29, 2012</date><authorinitials>DA</authorinitials></revision></revhistory>
+    <authorinitials>DJA</authorinitials>
+<revhistory><revision><revnumber>1.2.0</revnumber><date>May 30, 2012</date><authorinitials>DJA</authorinitials><revremark>Drop Express from OpenShift Express, local AS 7 deployment</revremark></revision></revhistory>
 </bookinfo>
 <preface>
 <title></title>
-<simpara>This tutorial steps through creating, testing and deploying an application using the JBoss Java EE tools and runtimes.</simpara>
+<simpara>This tutorial steps through creating, testing and deploying an application using the JBoss Java EE tools and runtimes. You can show up with nothing but Java and a passion to learn. By the end, you&#8217;ll have a full application running in the cloud provided by OpenShift.</simpara>
 <simpara>Here&#8217;s the development stack we&#8217;ll be using:</simpara>
 <itemizedlist>
 <listitem>
@@ -131,7 +131,7 @@ Check your email and follow instructions in the welcome email
 <informalexample>
 <simpara>http://[application name]-[domain name].rhcloud.com</simpara>
 </informalexample>
-<simpara>Create a domain with the following command:</simpara>
+<simpara>Create a domain using the following command:</simpara>
 <programlisting language="console" linenumbering="unnumbered">$&gt; rhc-create-domain -n [domain name] -l [openshift email]</programlisting>
 <note><simpara>Use the same email address you used to register for your OpenShift account and enter your OpenShift password when prompted.</simpara></note>
 <tip><simpara>All OpenShift client tools prompt you for your OpenShift password (unless you supply it using the -p command flag)</simpara></tip>
@@ -146,7 +146,7 @@ Check your email and follow instructions in the welcome email
 <simpara>We now want to create a new application that uses the JBoss AS 7 cartridge. This allows us to deploy Java EE-compliant applications to OpenShift.</simpara>
 <simpara>We&#8217;ll assume you&#8217;ll be developing the application in the following folder: <emphasis>~/demos/apps/sellmore</emphasis></simpara>
 <simpara>Next, use the following command to create a slot in your OpenShift domain in which to run the application and the location where the local project should be created:</simpara>
-<programlisting language="console" linenumbering="unnumbered">$&gt; rhc-create-app -a sellmore -t jbossas-7.0 -r ~/demos/apps/sellmore</programlisting>
+<programlisting language="console" linenumbering="unnumbered">$&gt; rhc-create-app -a sellmore -t jbossas-7 -r ~/demos/apps/sellmore</programlisting>
 <simpara>You&#8217;ll be prompted for your ssh key password that you created in the previous step.</simpara>
 <simpara>Behind the scenes, OpenShift has created a git repository for you and cloned it locally. That&#8217;s how you&#8217;re going to "push" your application to the cloud. The cloned repository contains a Maven-based project structure (which you don&#8217;t have to use):</simpara>
 <formalpara><title>Project layout</title><para>
@@ -205,7 +205,7 @@ $&gt; cd ..</programlisting>
  |_|  \___/|_|  \__, |\___|
                  |___/
 
-JBoss Forge, version [ 1.0.0.Beta5 ] - JBoss, by Red Hat, Inc. [ http://jboss.org/forge ]</programlisting>
+JBoss Forge, version [ 1.0.2.Final ] - JBoss, by Red Hat, Inc. [ http://jboss.org/forge ]</programlisting>
 <note><simpara>Any command in this document prefixed with <literal>$forge&gt;</literal> is intended to be run in the Forge shell.</simpara></note>
 <simpara>Things look good. We&#8217;re ready to create an application.</simpara>
 </section>
@@ -334,7 +334,11 @@ Return to the project root directory and leave it in your hands
 </calloutlist>
 <simpara>You&#8217;ve got a complete application, ready to deploy!</simpara>
 <simpara>But wait! That sure seemed like a lot of typing. What&#8217;s really great about Forge is that it&#8217;s fine-grained enough to perform simple operations, but it can also compose those operations inside plugins or scripts!</simpara>
-<simpara>You can take all of those commands and put them into a file named <emphasis>generate.fsh</emphasis>. You may also want to wrap the following two lines around the contents so that the commands run without pausing:</simpara>
+<simpara>You can take all of those commands and put them into a script ending in .fsh and run the script from the Forge shell.</simpara>
+<simpara>If you&#8217;re going to try this approach, you should first wipe the slate clean.</simpara>
+<programlisting language="console" linenumbering="unnumbered">$&gt; rm -Rf src/ pom.xml</programlisting>
+<simpara>Then, copy all the Forge commands listed above into the file generate.fsh at the root of the project.</simpara>
+<simpara>You may also want to wrap the following two lines around the contents so that the commands run without pausing:</simpara>
 <formalpara><title>Use as first line</title><para>
 <screen>set ACCEPT_DEFAULTS true; <co id="CO2-1"/></screen>
 </para></formalpara>
@@ -355,13 +359,40 @@ Reenables interactive commands
 </para>
 </callout>
 </calloutlist>
-<simpara>Now you can build the application in a single command:</simpara>
+<simpara>You can now build the application using a single command:</simpara>
 <programlisting language="console" linenumbering="unnumbered">$forge&gt; run generate.fsh</programlisting>
+<simpara>Alternatively, you can also run a prepared version of this script directly off the web</simpara>
+<programlisting language="console" linenumbering="unnumbered">$forge&gt; run-url https://raw.github.com/gist/1666087/1cd6032090f66f6aa18b7bd2ce55c569be8ac454/generate.fsh</programlisting>
 <simpara>That&#8217;s more like it! Now, let&#8217;s get the application running!</simpara>
 </section>
 </chapter>
 <chapter id="_application_deployment">
 <title>Application Deployment</title>
+<section id="_deploying_the_application_to_a_local_jboss_as_7_instance">
+<title>Deploying the application to a local JBoss AS 7 instance</title>
+<simpara>Before we get all cloud happy, it&#8217;s a good idea to make sure the application runs on our own machine. We want to make sure that we rule out any problems with the application before adding the cloud into the mix.</simpara>
+<simpara>If you don&#8217;t have JBoss AS 7 yet, head on over to the <ulink url="http://jboss.org/as7">JBoss AS 7 download page</ulink> and grab the latest 7.1 version. When the download finishes, unpack the distribution</simpara>
+<programlisting language="console" linenumbering="unnumbered">$&gt; unzip jboss-as-7.1.1.Final.zip</programlisting>
+<simpara>Move the extracted folder to the location of your choice (we&#8217;ll assume it&#8217;s $HOME/opt/jboss-as) and change into that directory in your console:</simpara>
+<programlisting language="console" linenumbering="unnumbered">$&gt; cd $HOME/opt/jboss-as</programlisting>
+<simpara>Finally, run JBoss AS in standalone (single server) mode:</simpara>
+<programlisting language="console" linenumbering="unnumbered">$&gt; ./bin/standalone.sh</programlisting>
+<simpara>You shouldn&#8217;t have to wait long to see:</simpara>
+<screen>JBoss AS 7.1.1.Final "Brontes" started in 1933ms - Started 133 of 208 services...</screen>
+<simpara>Now that&#8217;s a speedy app server!</simpara>
+<simpara>Let&#8217;s head back to Forge so we can give this eager server something to run. We&#8217;ll start by adding the Maven plugin for JBoss AS 7 to the project (yes, there is a decent Maven plugin finally):</simpara>
+<programlisting language="console" linenumbering="unnumbered">$forge&gt; setup as7</programlisting>
+<simpara>If you don&#8217;t have the as7 command yet, you can install it using this command, then go back and do the setup:</simpara>
+<programlisting language="console" linenumbering="unnumbered">$forge&gt; forge install-plugin as7</programlisting>
+<simpara>Okay, build the application and send it to JBoss AS:</simpara>
+<programlisting language="console" linenumbering="unnumbered">$forge&gt; build
+$forge&gt; as7 deploy</programlisting>
+<simpara>The first deployment is always the slowest, so give it a few seconds. Then, have a look around the application you generated:</simpara>
+<informalexample>
+<simpara>$$http://localhost:8080/sellmore</simpara>
+</informalexample>
+<simpara>If everything looks good, then the application is cleared for take off. Let&#8217;s now do the same deployment, but this time on OpenShift.</simpara>
+</section>
 <section id="_deploying_your_first_java_ee_application_to_openshift">
 <title>Deploying your first Java EE application to OpenShift</title>
 <simpara>There are two ways to deploy an application to OpenShift:</simpara>
@@ -657,7 +688,8 @@ A large community of Jenkins plugins (300+)
        Description: Integration Testing Framework</screen>
 <simpara>Let&#8217;s snag it.</simpara>
 <programlisting language="console" linenumbering="unnumbered">$forge&gt; forge install-plugin arquillian</programlisting>
-<simpara>That will clone the plugin source, build it and install it into the Forge shell. Once it&#8217;s finished, we can get straight to the Arquillian setup. We&#8217;ll first create a profile for a JBoss AS 7 instance running locally.</simpara>
+<simpara>That will clone the plugin source, build it and install it into the Forge shell. Once it&#8217;s finished, we can get straight to the Arquillian setup.</simpara>
+<simpara>We&#8217;ll first create a profile for testing on a running JBoss AS 7 instance on our own machine (here, the term <emphasis role="strong">remote</emphasis> refers to deployment protocol, not where the server is running).</simpara>
 <programlisting language="console" linenumbering="unnumbered">$forge&gt; setup arquillian --container JBOSS_AS_REMOTE_7.X</programlisting>
 <note>
 <simpara>At the time of writing, the plugin puts the Arquillian <acronym>BOM</acronym> dependency in the wrong section. Move it into the dependencyManagement section below the others:</simpara>
@@ -667,7 +699,7 @@ A large community of Jenkins plugins (300+)
     &lt;dependency&gt;
       &lt;groupId&gt;org.jboss.arquillian&lt;/groupId&gt;
       &lt;artifactId&gt;arquillian-bom&lt;/artifactId&gt;
-      &lt;version&gt;1.0.0.CR7&lt;/version&gt;
+      &lt;version&gt;1.0.0.Final&lt;/version&gt;
       &lt;type&gt;pom&lt;/type&gt;
       &lt;scope&gt;import&lt;/scope&gt;
     &lt;/dependency&gt;
@@ -805,7 +837,7 @@ private String execute(final HttpUriRequest request, final HttpClient client) {
 <title>Running the Arquillian tests on OpenShift</title>
 <simpara>Okay, now you can say it. "Let&#8217;s take it to the cloud!" If they work there, they&#8217;ll work anywhere :)</simpara>
 <simpara>It&#8217;s up to you whether you want to run the tests on the same OpenShift application as the production application or whether you want to create a dedicated application. We&#8217;ll assume you&#8217;re going to create a dedicated application. Let&#8217;s call it ike.</simpara>
-<programlisting language="console" linenumbering="unnumbered">$&gt; rhc-create-app -t jbossas-7.0 -a ike</programlisting>
+<programlisting language="console" linenumbering="unnumbered">$&gt; rhc-create-app -t jbossas-7 -a ike</programlisting>
 <simpara>You&#8217;ll also need an Arquillian profile. The Forge plugin doesn&#8217;t honor the OpenShift adapter yet, so you&#8217;ll have splice this profile into the pom.xml by hand:</simpara>
 <formalpara><title>pom.xml (fragment)</title><para>
 <programlisting language="xml" linenumbering="unnumbered">&lt;profile&gt;
@@ -814,7 +846,7 @@ private String execute(final HttpUriRequest request, final HttpClient client) {
     &lt;dependency&gt;
       &lt;groupId&gt;org.jboss.arquillian.container&lt;/groupId&gt;
       &lt;artifactId&gt;arquillian-openshift-express&lt;/artifactId&gt;
-      &lt;version&gt;1.0.0.Alpha1&lt;/version&gt;
+      &lt;version&gt;1.0.0.Beta1&lt;/version&gt;
       &lt;scope&gt;test&lt;/scope&gt;
     &lt;/dependency&gt;
   &lt;/dependencies&gt;
@@ -971,7 +1003,14 @@ OpenShift resources for JBoss AS<?asciidoc-br?>
 </listitem>
 <listitem>
 <simpara>
-<ulink url="https://repository.jboss.org/nexus/index.html#nexus-search;gav~org.jboss.forge~forge-distribution~~~~kw,versionexpand">JBoss Forge download</ulink>
+JBoss Forge homepage:<?asciidoc-br?>
+  <ulink url="http://jboss.org/forge">http://jboss.org/forge</ulink>
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+JBoss AS 7 homepage:<?asciidoc-br?>
+  <ulink url="http://jboss.org/as7">http://jboss.org/as7</ulink>
 </simpara>
 </listitem>
 <listitem>
@@ -990,6 +1029,18 @@ Deploy a Play! application on OpenShift (provided a lot of details for this work
 <simpara>
 How JBoss AS 7 was configured for OpenShift<?asciidoc-br?>
   <ulink url="https://community.jboss.org/blogs/scott.stark/2011/08/10/jbossas7-configuration-in-openshift-express">https://community.jboss.org/blogs/scott.stark/2011/08/10/jbossas7-configuration-in-openshift-express</ulink>
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+OpenShift resources for JBoss AS<?asciidoc-br?>
+  <ulink url="https://www.redhat.com/openshift/community/page/jboss-resources">https://www.redhat.com/openshift/community/page/jboss-resources</ulink>
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+Apache HttpComponents HttpClient<?asciidoc-br?>
+  <ulink url="http://hc.apache.org/httpcomponents-client-ga">http://hc.apache.org/httpcomponents-client-ga</ulink>
 </simpara>
 </listitem>
 </itemizedlist>

@@ -1,14 +1,16 @@
 JBoss Java EE 6 Workshop
 ========================
 Dan Allen <dan.j.allen@gmail.com>
-1.1.0, Feb 29, 2012
+v1.2.0, May 30, 2012 : Drop Express from OpenShift Express, local AS 7 deployment
+:Author Initials: DJA
 :openshift:             http://openshift.com
 :openshiftdashboard:    https://openshift.redhat.com/app/console/applications
 :installingclienttools: https://redhat.com/openshift/community/kb/kb-e1000/installing-openshift-express-client-tools-on-non-rpm-based-systems
 :jbossforge:            http://jboss.org/forge
 :jbossforgedownload:    link:$$https://repository.jboss.org/nexus/index.html#nexus-search;gav~org.jboss.forge~forge-distribution~~~~kw,versionexpand$$
+:jbossas7download:      http://jboss.org/as7
 
-This tutorial steps through creating, testing and deploying an application using the JBoss Java EE tools and runtimes.
+This tutorial steps through creating, testing and deploying an application using the JBoss Java EE tools and runtimes. You can show up with nothing but Java and a passion to learn. By the end, you'll have a full application running in the cloud provided by OpenShift.
 
 Here's the development stack we'll be using:
 
@@ -84,7 +86,7 @@ Before actually deploying an app to OpenShift, you first need to create a domain
 $$http://[application name]-[domain name].rhcloud.com$$
 ====
 
-Create a domain with the following command:
+Create a domain using the following command:
 
 [source,console]
 $> rhc-create-domain -n [domain name] -l [openshift email]
@@ -113,7 +115,7 @@ We'll assume you'll be developing the application in the following folder: '~/de
 Next, use the following command to create a slot in your OpenShift domain in which to run the application and the location where the local project should be created:
 
 [source,console]
-$> rhc-create-app -a sellmore -t jbossas-7.0 -r ~/demos/apps/sellmore
+$> rhc-create-app -a sellmore -t jbossas-7 -r ~/demos/apps/sellmore
 
 You'll be prompted for your ssh key password that you created in the previous step.
 
@@ -210,7 +212,7 @@ $forge> about
  |_|  \___/|_|  \__, |\___| 
                  |___/      
 
-JBoss Forge, version [ 1.0.0.Beta5 ] - JBoss, by Red Hat, Inc. [ http://jboss.org/forge ]
+JBoss Forge, version [ 1.0.2.Final ] - JBoss, by Red Hat, Inc. [ http://jboss.org/forge ]
 ----
 
 NOTE: Any command in this document prefixed with `$forge>` is intended to be run in the Forge shell.
@@ -298,7 +300,16 @@ You've got a complete application, ready to deploy!
 
 But wait! That sure seemed like a lot of typing. What's really great about Forge is that it's fine-grained enough to perform simple operations, but it can also compose those operations inside plugins or scripts!
 
-You can take all of those commands and put them into a file named 'generate.fsh'. You may also want to wrap the following two lines around the contents so that the commands run without pausing:
+You can take all of those commands and put them into a script ending in .fsh and run the script from the Forge shell.
+
+If you're going to try this approach, you should first wipe the slate clean.
+
+[source,console]
+$> rm -Rf src/ pom.xml
+
+Then, copy all the Forge commands listed above into the file generate.fsh at the root of the project.
+
+You may also want to wrap the following two lines around the contents so that the commands run without pausing:
 
 .Use as first line
 ----
@@ -314,16 +325,72 @@ set ACCEPT_DEFAULTS false; <1>
 
 <1> Reenables interactive commands
 
-Now you can build the application in a single command:
+You can now build the application using a single command:
 
 [source,console]
-----
 $forge> run generate.fsh
-----
+
+Alternatively, you can also run a prepared version of this script directly off the web
+
+[source,console]
+$forge> run-url https://raw.github.com/gist/1666087/1cd6032090f66f6aa18b7bd2ce55c569be8ac454/generate.fsh
 
 That's more like it! Now, let's get the application running!
 
 == Application Deployment
+
+=== Deploying the application to a local JBoss AS 7 instance
+
+Before we get all cloud happy, it's a good idea to make sure the application runs on our own machine. We want to make sure that we rule out any problems with the application before adding the cloud into the mix.
+
+If you don't have JBoss AS 7 yet, head on over to the {jbossas7download}[JBoss AS 7 download page] and grab the latest 7.1 version. When the download finishes, unpack the distribution
+
+[source,console]
+$> unzip jboss-as-7.1.1.Final.zip
+
+Move the extracted folder to the location of your choice (we'll assume it's $HOME/opt/jboss-as) and change into that directory in your console:
+
+[source,console]
+$> cd $HOME/opt/jboss-as
+
+Finally, run JBoss AS in standalone (single server) mode:
+
+[source,console]
+$> ./bin/standalone.sh
+
+You shouldn't have to wait long to see:
+
+----
+JBoss AS 7.1.1.Final "Brontes" started in 1933ms - Started 133 of 208 services...
+----
+
+Now that's a speedy app server!
+
+Let's head back to Forge so we can give this eager server something to run. We'll start by adding the Maven plugin for JBoss AS 7 to the project (yes, there is a decent Maven plugin finally):
+
+[source,console]
+$forge> setup as7
+
+If you don't have the as7 command yet, you can install it using this command, then go back and do the setup:
+
+[source,console]
+$forge> forge install-plugin as7
+
+Okay, build the application and send it to JBoss AS:
+
+[source,console]
+----
+$forge> build
+$forge> as7 deploy
+----
+
+The first deployment is always the slowest, so give it a few seconds. Then, have a look around the application you generated:
+
+====
+$$http://localhost:8080/sellmore
+====
+
+If everything looks good, then the application is cleared for take off. Let's now do the same deployment, but this time on OpenShift.
 
 === Deploying your first Java EE application to OpenShift
 
@@ -665,7 +732,9 @@ Let's snag it.
 $forge> forge install-plugin arquillian
 ----
 
-That will clone the plugin source, build it and install it into the Forge shell. Once it's finished, we can get straight to the Arquillian setup. We'll first create a profile for a JBoss AS 7 instance running locally.
+That will clone the plugin source, build it and install it into the Forge shell. Once it's finished, we can get straight to the Arquillian setup.
+
+We'll first create a profile for testing on a running JBoss AS 7 instance on our own machine (here, the term *remote* refers to deployment protocol, not where the server is running).
 
 [source,console]
 ----
@@ -684,7 +753,7 @@ At the time of writing, the plugin puts the Arquillian BOM[Bill of Materials] de
     <dependency>
       <groupId>org.jboss.arquillian</groupId>
       <artifactId>arquillian-bom</artifactId>
-      <version>1.0.0.CR7</version>
+      <version>1.0.0.Final</version>
       <type>pom</type>
       <scope>import</scope>
     </dependency> 
@@ -878,7 +947,7 @@ Okay, now you can say it. "Let's take it to the cloud!" If they work there, they
 It's up to you whether you want to run the tests on the same OpenShift application as the production application or whether you want to create a dedicated application. We'll assume you're going to create a dedicated application. Let's call it ike.
 
 [source,console]
-$> rhc-create-app -t jbossas-7.0 -a ike
+$> rhc-create-app -t jbossas-7 -a ike
 
 You'll also need an Arquillian profile. The Forge plugin doesn't honor the OpenShift adapter yet, so you'll have splice this profile into the pom.xml by hand:
 
@@ -891,7 +960,7 @@ You'll also need an Arquillian profile. The Forge plugin doesn't honor the OpenS
     <dependency>
       <groupId>org.jboss.arquillian.container</groupId>
       <artifactId>arquillian-openshift-express</artifactId>
-      <version>1.0.0.Alpha1</version>
+      <version>1.0.0.Beta1</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -1002,10 +1071,21 @@ In this tutorial, we learned how to:
   https://www.redhat.com/openshift/community/kb/kb-e1021-rundown-on-the-github-hosted-git-repositories-available-for-rapid-deployment
 * OpenShift resources for JBoss AS +
   https://www.redhat.com/openshift/community/page/jboss-resources
-* {jbossforgedownload}[JBoss Forge download]
+* JBoss Forge homepage: +
+  http://jboss.org/forge
+* JBoss AS 7 homepage: +
+  http://jboss.org/as7
 * JBoss Java EE quickstarts repository +
   https://github.com/jbossas/quickstart
 * Deploy a Play! application on OpenShift (provided a lot of details for this workshop) +
   https://github.com/opensas/play-demo/wiki/Step-12.5---deploy-to-openshift
 * How JBoss AS 7 was configured for OpenShift +
   https://community.jboss.org/blogs/scott.stark/2011/08/10/jbossas7-configuration-in-openshift-express
+* OpenShift resources for JBoss AS +
+  https://www.redhat.com/openshift/community/page/jboss-resources
+* Apache HttpComponents HttpClient +
+  http://hc.apache.org/httpcomponents-client-ga
+
+////
+Create a parallel tutorial that takes a JBoss Tools-centric approach, as in: http://www.commonj.com/blogs/?p=677 and http://deors.wordpress.com/2011/12/13/red-hat-openshift/
+////
