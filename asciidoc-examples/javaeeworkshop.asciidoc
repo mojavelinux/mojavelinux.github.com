@@ -1,3 +1,15 @@
+//
+// Export Commands
+// ===============
+// to HTML5:
+// asciidoc -b html5 -a icons -a theme=default -a data-uri -a toc2 -a pygments -f javaeeworkshop.conf javaeeworkshop.asciidoc
+//
+// to DocBook:
+// asciidoc -b docbook -dbook -f javaeeworkshop.conf javaeeworkshop.asciidoc
+//
+// to PDF (using fop):
+// a2x -fpdf -dbook --fop --icons --icons-dir=$HOME/.asciidoc/themes/default/icons -f javaeeworkshop.conf javaeeworkshop.asciidoc
+//
 JBoss Java EE 6 Workshop
 ========================
 Dan Allen <dan.j.allen@gmail.com>
